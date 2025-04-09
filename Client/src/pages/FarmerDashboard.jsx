@@ -135,6 +135,12 @@ const FarmerDashboard = () => {
             >
               Scan Crop Disease
             </Link>
+            <Link
+              to="/yield-prediction"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+            >
+              Predict Yield
+            </Link>
           </div>
         </div>
 
@@ -205,50 +211,71 @@ const FarmerDashboard = () => {
                     </div>
                   </div>
                 </div>
+                <div className="bg-gray-50 px-4 py-4 sm:px-6">
+                  <div className="text-sm">
+                    <Link to="#" className="font-medium text-green-600 hover:text-green-500">
+                      View all sales
+                    </Link>
+                  </div>
+                </div>
               </div>
 
-              {/* Products Count Card */}
+              {/* Crop Disease Scan Card */}
               <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 bg-indigo-500 rounded-md p-3">
                       <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                       </svg>
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Active Products</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate">Crop Health</dt>
                         <dd>
                           <div className="text-lg font-medium text-gray-900">
-                            {products?.length || 0}
+                            Scan for diseases
                           </div>
                         </dd>
                       </dl>
                     </div>
                   </div>
                 </div>
+                <div className="bg-gray-50 px-4 py-4 sm:px-6">
+                  <div className="text-sm">
+                    <Link to="/crop-scan" className="font-medium text-indigo-600 hover:text-indigo-500">
+                      Scan your crops
+                    </Link>
+                  </div>
+                </div>
               </div>
 
-              {/* Orders Count Card */}
+              {/* Yield Prediction Card */}
               <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="px-4 py-5 sm:p-6">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 bg-yellow-500 rounded-md p-3">
                       <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Total Orders</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate">Yield Prediction</dt>
                         <dd>
                           <div className="text-lg font-medium text-gray-900">
-                            {analytics?.orderCount || 0}
+                            Plan better harvests
                           </div>
                         </dd>
                       </dl>
                     </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-4 sm:px-6">
+                  <div className="text-sm">
+                    <Link to="/yield-prediction" className="font-medium text-yellow-600 hover:text-yellow-500">
+                      Predict crop yield
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -13,6 +13,9 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import CropScanPage from './pages/CropScanPage';
 import CropScanHistoryPage from './pages/CropScanHistoryPage';
 import CropScanDetailPage from './pages/CropScanDetailPage';
+import YieldPredictionPage from './pages/YieldPredictionPage';
+import YieldPredictionHistoryPage from './pages/YieldPredictionHistoryPage';
+import YieldPredictionDetailPage from './pages/YieldPredictionDetailPage';
 
 function App() {
   return (
@@ -34,6 +37,9 @@ function App() {
               <Route path="/crop-scan" element={<CropScanPage />} />
               <Route path="/crop-scan-history" element={<CropScanHistoryPage />} />
               <Route path="/crop-scan/:predictionId" element={<CropScanDetailPage />} />
+              <Route path="/yield-prediction" element={<YieldPredictionPage />} />
+              <Route path="/yield-prediction-history" element={<YieldPredictionHistoryPage />} />
+              <Route path="/yield-prediction/:predictionId" element={<YieldPredictionDetailPage />} />
             </Routes>
           </main>
           <footer className="bg-gray-800 text-white py-6">

@@ -274,4 +274,55 @@ export const predictionApi = {
   }
 };
 
+// Yield Prediction API calls
+export const yieldPredictionApi = {
+  // Get yield prediction for crop inputs
+  predictYield: async (yieldData) => {
+    try {
+      const response = await api.post('/yield-predictions', yieldData);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to get yield prediction');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // Get yield prediction history for the logged-in farmer
+  getYieldPredictionHistory: async () => {
+    try {
+      const response = await api.get('/yield-predictions');
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to fetch yield prediction history');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // Get specific yield prediction by ID
+  getYieldPredictionById: async (predictionId) => {
+    try {
+      const response = await api.get(`/yield-predictions/${predictionId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to fetch yield prediction');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  }
+};
+
 export default api; 

@@ -37,6 +37,9 @@ const Navbar = () => {
                     <Link to="/crop-scan" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">
                       Crop Scan
                     </Link>
+                    <Link to="/yield-prediction" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">
+                      Yield Prediction
+                    </Link>
                   </>
                 )}
               </div>
@@ -51,9 +54,6 @@ const Navbar = () => {
                     <>
                       <Link to="/add-product" className="mr-4 px-3 py-1 bg-white text-green-600 rounded-md text-sm font-medium hover:bg-gray-100">
                         Add Product
-                      </Link>
-                      <Link to="/crop-scan-history" className="mr-4 px-3 py-1 bg-white text-green-600 rounded-md text-sm font-medium hover:bg-gray-100">
-                        Scan History
                       </Link>
                     </>
                   )}
@@ -137,9 +137,6 @@ const Navbar = () => {
                   <>
                     <Link to="/add-product" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
                       Add Product
-                    </Link>
-                    <Link to="/crop-scan-history" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
-                      Scan History
                     </Link>
                   </>
                 )}

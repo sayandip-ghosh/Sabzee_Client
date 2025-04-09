@@ -95,15 +95,23 @@ const CropScanPage = () => {
   const handleViewHistory = () => {
     navigate('/crop-scan-history');
   };
-
+  
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900">Crop Disease Detection</h1>
-          <p className="mt-2 text-lg text-gray-600">
+      <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-extrabold text-gray-900">Crop Disease Detection</h1>
+            <p className="mt-2 text-lg text-gray-600">
             Upload or capture images of crop leaves to detect diseases
-          </p>
+            </p>
+          </div>
+          <button
+            onClick={handleViewHistory}
+            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+          >
+            View History
+          </button>
         </div>
         
         {error && (

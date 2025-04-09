@@ -180,10 +180,6 @@ const CropScanDetailPage = () => {
                     </div>
                   )}
                   
-                  <div className="py-4 sm:py-5 grid grid-cols-3 gap-4">
-                    <dt className="text-sm font-medium text-gray-500">ID</dt>
-                    <dd className="text-sm text-gray-900 col-span-2 break-all">{prediction._id}</dd>
-                  </div>
                 </dl>
               </div>
             </div>

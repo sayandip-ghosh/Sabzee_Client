@@ -56,6 +56,22 @@ export const productApi = {
     }
   },
 
+  // Rate a product (consumer only)
+  rateProduct: async (productId, rating, review) => {
+    try {
+      const response = await api.post(`/products/${productId}/rate`, { rating, review });
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to rate product');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
   // Create a new product (farmer only)
   createProduct: async (productData) => {
     try {
@@ -410,6 +426,89 @@ export const forumApi = {
       return response.data;
     } catch (error) {
       throw error;
+    }
+  }
+};
+
+// Cart API calls
+export const cartApi = {
+  // Get user's cart
+  getCart: async () => {
+    try {
+      const response = await api.get('/cart');
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to fetch cart');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // Add item to cart
+  addToCart: async (productId, quantity) => {
+    try {
+      const response = await api.post('/cart', { productId, quantity });
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to add item to cart');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // Update item quantity in cart
+  updateCartItem: async (itemId, quantity) => {
+    try {
+      const response = await api.put(`/cart/${itemId}`, { quantity });
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to update cart');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // Remove item from cart
+  removeCartItem: async (itemId) => {
+    try {
+      const response = await api.delete(`/cart/${itemId}`);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to remove item');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // Checkout cart and create order
+  checkout: async (shippingDetails) => {
+    try {
+      const response = await api.post('/orders/checkout', shippingDetails);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Checkout failed');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
     }
   }
 };

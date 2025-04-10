@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import axios from 'axios';
+import { cartApi, productApi } from '../services/api';
 
 const ProductDetailPage = () => {
   const { productId } = useParams();
@@ -14,12 +15,24 @@ const ProductDetailPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [addingToCart, setAddingToCart] = useState(false);
   const [cartSuccess, setCartSuccess] = useState(false);
+  const [userRating, setUserRating] = useState(0);
+  const [userReview, setUserReview] = useState('');
+  const [submittingRating, setSubmittingRating] = useState(false);
+  const [ratingSuccess, setRatingSuccess] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/products/${productId}`);
         setProduct(response.data);
+        // Set user's existing rating if they've rated before
+        if (response.data.ratings && isAuthenticated) {
+          const existingRating = response.data.ratings.find(r => r.user === user.id);
+          if (existingRating) {
+            setUserRating(existingRating.rating);
+            setUserReview(existingRating.review);
+          }
+        }
       } catch (error) {
         console.error('Error fetching product:', error);
         setError('Failed to load product. Please try again.');
@@ -29,7 +42,7 @@ const ProductDetailPage = () => {
     };
 
     fetchProduct();
-  }, [productId]);
+  }, [productId, isAuthenticated, user]);
 
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value);
@@ -60,19 +73,7 @@ const ProductDetailPage = () => {
     setCartSuccess(false);
 
     try {
-      const token = localStorage.getItem('token');
-      await axios.post(
-        'http://localhost:5000/api/cart',
-        {
-          productId,
-          quantity
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
+      await cartApi.addToCart(productId, quantity);
       setCartSuccess(true);
       setTimeout(() => setCartSuccess(false), 3000);
     } catch (error) {
@@ -80,6 +81,27 @@ const ProductDetailPage = () => {
       setError('Failed to add item to cart. Please try again.');
     } finally {
       setAddingToCart(false);
+    }
+  };
+
+  const handleRatingSubmit = async (e) => {
+    e.preventDefault();
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: `/products/${productId}` } });
+      return;
+    }
+
+    setSubmittingRating(true);
+    try {
+      const updatedProduct = await productApi.rateProduct(productId, userRating, userReview);
+      setProduct(updatedProduct);
+      setRatingSuccess(true);
+      setTimeout(() => setRatingSuccess(false), 3000);
+    } catch (error) {
+      console.error('Error submitting rating:', error);
+      setError('Failed to submit rating. Please try again.');
+    } finally {
+      setSubmittingRating(false);
     }
   };
 
@@ -183,7 +205,7 @@ const ProductDetailPage = () => {
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
             <div className="flex justify-between">
               <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product.name}</h1>
-              <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+              <span className={`px-2 pt-2 text-xs font-semibold rounded-full ${
                 product.status === 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
               }`}>
                 {product.status === 'available' ? 'In Stock' : 'Sold Out'}
@@ -283,13 +305,13 @@ const ProductDetailPage = () => {
                     />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center bg-green-100 text-green-600">
-                      <span className="text-xl font-bold">{product.farmer.name.charAt(0).toUpperCase()}</span>
+                      <span className="text-xl font-bold">{product.farmer?.name?.charAt(0)?.toUpperCase() || 'F'}</span>
                     </div>
                   )}
                 </div>
                 <div className="ml-4">
-                  <h4 className="text-sm font-medium text-gray-900">{product.farmer.name}</h4>
-                  {product.farmer.farmDetails && (
+                  <h4 className="text-sm font-medium text-gray-900">{product.farmer?.name || 'Farmer'}</h4>
+                  {product.farmer?.farmDetails && (
                     <p className="text-sm text-gray-500">{product.farmer.farmDetails.farmName}</p>
                   )}
                 </div>
@@ -366,6 +388,111 @@ const ProductDetailPage = () => {
                     Please <Link to="/login" className="text-green-600 font-medium">login</Link> to add items to your cart.
                   </p>
                 )}
+              </div>
+            )}
+
+            {/* Add Rating Section */}
+            {user?.role === 'consumer' && (
+              <div className="mt-8 border-t border-gray-200 pt-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Rate this Product</h3>
+                <form onSubmit={handleRatingSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Your Rating</label>
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setUserRating(star)}
+                          className="focus:outline-none"
+                        >
+                          <svg
+                            className={`h-8 w-8 ${
+                              star <= userRating ? 'text-yellow-400' : 'text-gray-300'
+                            }`}
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="review" className="block text-sm font-medium text-gray-700 mb-2">
+                      Your Review
+                    </label>
+                    <textarea
+                      id="review"
+                      rows={4}
+                      value={userReview}
+                      onChange={(e) => setUserReview(e.target.value)}
+                      className="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      placeholder="Write your review here..."
+                      required
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={submittingRating || !userRating}
+                    className={`w-full sm:w-auto px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
+                      submittingRating || !userRating ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    {submittingRating ? 'Submitting...' : 'Submit Review'}
+                  </button>
+                </form>
+
+                {ratingSuccess && (
+                  <div className="mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-sm text-green-700">
+                          Review submitted successfully!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Display Reviews Section */}
+            {product?.ratings && product.ratings.length > 0 && (
+              <div className="mt-8 border-t border-gray-200 pt-8">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Customer Reviews</h3>
+                <div className="space-y-6">
+                  {product.ratings.map((rating, index) => (
+                    <div key={index} className="border-b border-gray-200 pb-6 last:border-b-0">
+                      <div className="flex items-center mb-2">
+                        <div className="flex items-center">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <svg
+                              key={star}
+                              className={`h-5 w-5 ${
+                                star <= rating.rating ? 'text-yellow-400' : 'text-gray-300'
+                              }`}
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <span className="ml-2 text-sm text-gray-500">
+                          {new Date(rating.date).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <p className="text-gray-700">{rating.review}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -56,6 +57,11 @@ const Navbar = () => {
                         Add Product
                       </Link>
                     </>
+                  )}
+                  {user?.role === 'consumer' && (
+                    <Link to="/cart" className="mr-4 relative" title="View Cart">
+                      <FaShoppingCart className="text-white text-xl" />
+                    </Link>
                   )}
                   <Link to="/profile" className="mr-4 px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">
                     Profile
@@ -142,6 +148,11 @@ const Navbar = () => {
                       Add Product
                     </Link>
                   </>
+                )}
+                {user?.role === 'consumer' && (
+                  <Link to="/cart" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
+                    My Cart
+                  </Link>
                 )}
                 <button
                   onClick={logout}

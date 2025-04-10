@@ -20,6 +20,8 @@ import ForumPage from './pages/ForumPage';
 import ForumPostDetail from './pages/ForumPostDetail';
 import CreateForumPost from './pages/CreateForumPost';
 import EditForumPost from './pages/EditForumPost';
+import CartPage from './pages/CartPage';
+import OrderConfirmationPage from './pages/OrderConfirmationPage';
 
 function App() {
   return (
@@ -48,6 +50,8 @@ function App() {
               <Route path="/forum/:postId" element={<ForumPostDetail />} />
               <Route path="/forum/create" element={<CreateForumPost />} />
               <Route path="/forum/:postId/edit" element={<EditForumPost />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/orders/:orderId" element={<OrderConfirmationPage />} />
             </Routes>
           </main>
           <footer className="bg-gray-800 text-white py-6">

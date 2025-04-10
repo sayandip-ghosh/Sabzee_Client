@@ -16,6 +16,10 @@ import CropScanDetailPage from './pages/CropScanDetailPage';
 import YieldPredictionPage from './pages/YieldPredictionPage';
 import YieldPredictionHistoryPage from './pages/YieldPredictionHistoryPage';
 import YieldPredictionDetailPage from './pages/YieldPredictionDetailPage';
+import ForumPage from './pages/ForumPage';
+import ForumPostDetail from './pages/ForumPostDetail';
+import CreateForumPost from './pages/CreateForumPost';
+import EditForumPost from './pages/EditForumPost';
 
 function App() {
   return (
@@ -40,6 +44,10 @@ function App() {
               <Route path="/yield-prediction" element={<YieldPredictionPage />} />
               <Route path="/yield-prediction-history" element={<YieldPredictionHistoryPage />} />
               <Route path="/yield-prediction/:predictionId" element={<YieldPredictionDetailPage />} />
+              <Route path="/forum" element={<ForumPage />} />
+              <Route path="/forum/:postId" element={<ForumPostDetail />} />
+              <Route path="/forum/create" element={<CreateForumPost />} />
+              <Route path="/forum/:postId/edit" element={<EditForumPost />} />
             </Routes>
           </main>
           <footer className="bg-gray-800 text-white py-6">

@@ -325,4 +325,93 @@ export const yieldPredictionApi = {
   }
 };
 
+// Forum API calls
+export const forumApi = {
+  // Get all forum posts
+  getPosts: async (params = {}) => {
+    try {
+      const response = await api.get('/forum', { params });
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Failed to fetch forum posts');
+      } else if (error.request) {
+        throw new Error('No response from server. Please try again.');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // Get post by ID
+  getPostById: async (id) => {
+    try {
+      const response = await api.get(`/forum/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Create a new post
+  createPost: async (postData) => {
+    try {
+      const response = await api.post('/forum', postData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Update post
+  updatePost: async (id, postData) => {
+    try {
+      const response = await api.put(`/forum/${id}`, postData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Delete post
+  deletePost: async (id) => {
+    try {
+      const response = await api.delete(`/forum/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Add comment to post
+  addComment: async (postId, content) => {
+    try {
+      const response = await api.post(`/forum/${postId}/comments`, { content });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Delete comment
+  deleteComment: async (postId, commentId) => {
+    try {
+      const response = await api.delete(`/forum/${postId}/comments/${commentId}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  // Like/unlike post
+  toggleLike: async (postId) => {
+    try {
+      const response = await api.post(`/forum/${postId}/like`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+};
+
 export default api; 

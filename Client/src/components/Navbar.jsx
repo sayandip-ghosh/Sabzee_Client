@@ -26,9 +26,6 @@ const Navbar = () => {
                 <Link to="/products" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">
                   Products
                 </Link>
-                <Link to="/farmers" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">
-                  Farmers
-                </Link>
                 {isAuthenticated && user?.role === 'farmer' && (
                   <>
                     <Link to="/dashboard" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">
@@ -39,6 +36,9 @@ const Navbar = () => {
                     </Link>
                     <Link to="/yield-prediction" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">
                       Yield Prediction
+                    </Link>
+                    <Link to="/forum" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">
+                      Forum
                     </Link>
                   </>
                 )}
@@ -112,9 +112,6 @@ const Navbar = () => {
             <Link to="/products" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
               Products
             </Link>
-            <Link to="/farmers" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
-              Farmers
-            </Link>
             {isAuthenticated && user?.role === 'farmer' && (
               <>
                 <Link to="/dashboard" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
@@ -122,6 +119,12 @@ const Navbar = () => {
                 </Link>
                 <Link to="/crop-scan" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
                   Crop Scan
+                </Link>
+                <Link to="/yield-prediction" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
+                  Yield Prediction
+                </Link>
+                <Link to="/forum" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-green-700">
+                  Forum
                 </Link>
               </>
             )}

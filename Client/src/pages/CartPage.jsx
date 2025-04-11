@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
-import { cartApi } from '../services/api';
+import { cartApi, orderApi } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 
 const CartPage = () => {
@@ -13,18 +13,6 @@ const CartPage = () => {
   const [error, setError] = useState(null);
   const [updating, setUpdating] = useState(false);
   const [checkingOut, setCheckingOut] = useState(false);
-  // Form for shipping details
-  const [showCheckoutForm, setShowCheckoutForm] = useState(false);
-  const [shippingDetails, setShippingDetails] = useState({
-    fullName: '',
-    address: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    phoneNumber: '',
-    paymentMethod: 'cash-on-delivery',
-  });
-  const [formErrors, setFormErrors] = useState({});
 
   // Fetch cart on component mount
   useEffect(() => {
@@ -94,81 +82,62 @@ const CartPage = () => {
     }
   };
 
-  // Handle input change for shipping form
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setShippingDetails(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error for this field if any
-    if (formErrors[name]) {
-      setFormErrors(prev => ({
-        ...prev,
-        [name]: null
-      }));
-    }
-  };
-
-  // Validate checkout form
-  const validateForm = () => {
-    const errors = {};
-    
-    if (!shippingDetails.fullName.trim()) {
-      errors.fullName = 'Full name is required';
-    }
-    
-    if (!shippingDetails.address.trim()) {
-      errors.address = 'Address is required';
-    }
-    
-    if (!shippingDetails.city.trim()) {
-      errors.city = 'City is required';
-    }
-    
-    if (!shippingDetails.state.trim()) {
-      errors.state = 'State is required';
-    }
-    
-    if (!shippingDetails.postalCode.trim()) {
-      errors.postalCode = 'Postal code is required';
-    }
-    
-    if (!shippingDetails.phoneNumber.trim()) {
-      errors.phoneNumber = 'Phone number is required';
-    } else if (!/^\d{10}$/.test(shippingDetails.phoneNumber.replace(/\D/g, ''))) {
-      errors.phoneNumber = 'Please enter a valid 10-digit phone number';
-    }
-    
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
   // Handle checkout process
-  const handleCheckout = async (e) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-    
+  const handleCheckout = async () => {
     if (checkingOut) return;
     
     try {
       setCheckingOut(true);
-      const result = await cartApi.checkout(shippingDetails);
+      setError(null);
       
-      // Redirect to order confirmation
-      navigate(`/orders/${result.order._id}`, { 
-        state: { 
-          success: true, 
-          message: 'Your order has been placed successfully!' 
-        } 
-      });
-    } catch (error) {
-      console.error('Error during checkout:', error);
-      setError('Checkout failed. Please try again.');
+      // Create order data with both shipping details and cart items
+      const orderData = {
+        items: cart.items.map(item => ({
+          product: item.product._id,
+          quantity: item.quantity,
+          price: item.product.price
+        })),
+        totalAmount: cart.total,
+        shippingDetails: {
+          fullName: user.name || 'Customer',
+          address: 'Pickup from farmer',
+          city: 'Kolkata',
+          state: 'West Bengal',
+          postalCode: '700001',
+          phoneNumber: user.phoneNumber || 'N/A'
+        },
+        paymentMethod: 'cash-on-delivery'
+      };
+
+      // Call checkout API with required shipping details
+      const result = await orderApi.createOrder(orderData);
+      
+      // Show success message
+      const successMessage = document.createElement('div');
+      successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+      successMessage.textContent = 'Order placed successfully!';
+      document.body.appendChild(successMessage);
+      
+      // Clear cart in local state
+      setCart({ items: [], total: 0 });
+      
+      // Redirect to products page after a short delay
+      setTimeout(() => {
+        // Remove success message
+        successMessage.remove();
+        
+        // Navigate to products page with success message
+        navigate('/products', {
+          state: {
+            success: true,
+            message: 'Your order has been placed successfully!'
+          }
+        });
+      }, 2000);
+      
+    } catch (err) {
+      console.error('Error during checkout:', err);
+      setError(err.message || 'Checkout failed. Please try again.');
       setCheckingOut(false);
     }
   };
@@ -350,223 +319,22 @@ const CartPage = () => {
         {/* Cart summary */}
         <div className="bg-gray-50 px-6 py-4">
           <div className="flex justify-between text-base font-medium text-gray-900">
-            <p>Subtotal</p>
+            <p>Total</p>
             <p>₹{cart.total}</p>
           </div>
-          <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes will be calculated at checkout.</p>
           <div className="mt-6">
             <button
-              onClick={() => setShowCheckoutForm(true)}
-              className="w-full bg-green-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              onClick={handleCheckout}
+              disabled={checkingOut}
+              className={`w-full bg-green-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${
+                checkingOut ? 'opacity-75 cursor-not-allowed' : ''
+              }`}
             >
-              Proceed to Checkout
+              {checkingOut ? 'Processing...' : 'Place Order'}
             </button>
           </div>
         </div>
       </div>
-      
-      {/* Checkout form modal */}
-      {showCheckoutForm && (
-        <div className="fixed inset-0 overflow-y-auto z-50">
-          <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-            {/* Background overlay */}
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            {/* Modal panel */}
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Checkout</h3>
-                    <form onSubmit={handleCheckout} className="space-y-4">
-                      <div>
-                        <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-                          Full Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          id="fullName"
-                          name="fullName"
-                          value={shippingDetails.fullName}
-                          onChange={handleInputChange}
-                          className={`mt-1 block w-full rounded-md shadow-sm py-2 px-3 sm:text-sm ${
-                            formErrors.fullName 
-                              ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
-                              : 'border-gray-300 focus:ring-green-500 focus:border-green-500'
-                          }`}
-                        />
-                        {formErrors.fullName && (
-                          <p className="mt-1 text-sm text-red-600">{formErrors.fullName}</p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-                          Address <span className="text-red-500">*</span>
-                        </label>
-                        <textarea
-                          id="address"
-                          name="address"
-                          rows="3"
-                          value={shippingDetails.address}
-                          onChange={handleInputChange}
-                          className={`mt-1 block w-full rounded-md shadow-sm py-2 px-3 sm:text-sm ${
-                            formErrors.address 
-                              ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
-                              : 'border-gray-300 focus:ring-green-500 focus:border-green-500'
-                          }`}
-                        ></textarea>
-                        {formErrors.address && (
-                          <p className="mt-1 text-sm text-red-600">{formErrors.address}</p>
-                        )}
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                            City <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            id="city"
-                            name="city"
-                            value={shippingDetails.city}
-                            onChange={handleInputChange}
-                            className={`mt-1 block w-full rounded-md shadow-sm py-2 px-3 sm:text-sm ${
-                              formErrors.city 
-                                ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
-                                : 'border-gray-300 focus:ring-green-500 focus:border-green-500'
-                            }`}
-                          />
-                          {formErrors.city && (
-                            <p className="mt-1 text-sm text-red-600">{formErrors.city}</p>
-                          )}
-                        </div>
-
-                        <div>
-                          <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-                            State <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            id="state"
-                            name="state"
-                            value={shippingDetails.state}
-                            onChange={handleInputChange}
-                            className={`mt-1 block w-full rounded-md shadow-sm py-2 px-3 sm:text-sm ${
-                              formErrors.state 
-                                ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
-                                : 'border-gray-300 focus:ring-green-500 focus:border-green-500'
-                            }`}
-                          />
-                          {formErrors.state && (
-                            <p className="mt-1 text-sm text-red-600">{formErrors.state}</p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
-                            Postal Code <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            id="postalCode"
-                            name="postalCode"
-                            value={shippingDetails.postalCode}
-                            onChange={handleInputChange}
-                            className={`mt-1 block w-full rounded-md shadow-sm py-2 px-3 sm:text-sm ${
-                              formErrors.postalCode 
-                                ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
-                                : 'border-gray-300 focus:ring-green-500 focus:border-green-500'
-                            }`}
-                          />
-                          {formErrors.postalCode && (
-                            <p className="mt-1 text-sm text-red-600">{formErrors.postalCode}</p>
-                          )}
-                        </div>
-
-                        <div>
-                          <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-                            Phone Number <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="tel"
-                            id="phoneNumber"
-                            name="phoneNumber"
-                            value={shippingDetails.phoneNumber}
-                            onChange={handleInputChange}
-                            className={`mt-1 block w-full rounded-md shadow-sm py-2 px-3 sm:text-sm ${
-                              formErrors.phoneNumber 
-                                ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
-                                : 'border-gray-300 focus:ring-green-500 focus:border-green-500'
-                            }`}
-                          />
-                          {formErrors.phoneNumber && (
-                            <p className="mt-1 text-sm text-red-600">{formErrors.phoneNumber}</p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                          Payment Method <span className="text-red-500">*</span>
-                        </label>
-                        <div className="mt-2">
-                          <div className="flex items-center">
-                            <input
-                              id="cash-on-delivery"
-                              name="paymentMethod"
-                              type="radio"
-                              value="cash-on-delivery"
-                              checked={shippingDetails.paymentMethod === 'cash-on-delivery'}
-                              onChange={handleInputChange}
-                              className="h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500"
-                            />
-                            <label htmlFor="cash-on-delivery" className="ml-3 block text-sm font-medium text-gray-700">
-                              Cash on Delivery
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-6 border-t border-gray-200 pt-4">
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                          <p>Order Total:</p>
-                          <p>₹{cart.total}</p>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button
-                  type="submit"
-                  onClick={handleCheckout}
-                  disabled={checkingOut}
-                  className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm ${
-                    checkingOut ? 'opacity-75 cursor-not-allowed' : ''
-                  }`}
-                >
-                  {checkingOut ? 'Processing...' : 'Place Order'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowCheckoutForm(false)}
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:mt-0 sm:w-auto sm:text-sm"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

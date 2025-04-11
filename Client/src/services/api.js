@@ -129,11 +129,17 @@ export const productApi = {
 // Order API calls
 export const orderApi = {
   // Get all orders for current user
-  getOrders: async () => {
+  getOrders: async (farmerId = null) => {
     try {
-      const response = await api.get('/orders');
+      let url = '/orders';
+      if (farmerId) {
+        url = `/orders/farmer/${farmerId}`;  // Updated endpoint to get farmer-specific orders
+      }
+      const response = await api.get(url);
+      console.log('Orders response for farmer:', response.data);
       return response.data;
     } catch (error) {
+      console.error('Error fetching orders:', error);
       throw error;
     }
   },
@@ -151,7 +157,7 @@ export const orderApi = {
   // Create a new order
   createOrder: async (orderData) => {
     try {
-      const response = await api.post('/orders', orderData);
+      const response = await api.post('/orders/checkout', orderData);
       return response.data;
     } catch (error) {
       throw error;

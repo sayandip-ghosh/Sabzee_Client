@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import axios from 'axios';
+import TranslateText from '../components/TranslateText';
 
 const AddProductPage = () => {
   const { user } = useAuth();
@@ -142,15 +143,17 @@ const AddProductPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">Access Denied</h2>
+          <h2 className="text-3xl font-extrabold text-gray-900">
+            <TranslateText>Access Denied</TranslateText>
+          </h2>
           <p className="mt-2 text-lg text-gray-600">
-            Only farmers can add products.
+            <TranslateText>Only farmers can add products.</TranslateText>
           </p>
           <button
             onClick={() => navigate('/')}
             className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Go to Home
+            <TranslateText>Go to Home</TranslateText>
           </button>
         </div>
       </div>
@@ -161,15 +164,17 @@ const AddProductPage = () => {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900">Add New Product</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900">
+            <TranslateText>Add New Product</TranslateText>
+          </h1>
           <p className="mt-1 text-lg text-gray-500">
-            List your fresh produce to sell to consumers
+            <TranslateText>List your fresh produce to sell to consumers</TranslateText>
           </p>
         </div>
 
         {error && (
           <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4">
-            <p className="text-red-700">{error}</p>
+            <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
           </div>
         )}
 
@@ -177,14 +182,14 @@ const AddProductPage = () => {
           <form onSubmit={handleSubmit}>
             <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
               <h3 className="text-lg leading-6 font-medium text-gray-900">
-                Product Information
+                <TranslateText>Product Information</TranslateText>
               </h3>
             </div>
             <div className="px-4 py-5 sm:p-6">
               <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    Product Name
+                    <TranslateText>Product Name</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -201,7 +206,7 @@ const AddProductPage = () => {
 
                 <div className="sm:col-span-3">
                   <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                    Category
+                    <TranslateText>Category</TranslateText>
                   </label>
                   <div className="mt-1">
                     <select
@@ -214,7 +219,7 @@ const AddProductPage = () => {
                     >
                       {categories.map(category => (
                         <option key={category} value={category}>
-                          {category.charAt(0).toUpperCase() + category.slice(1)}
+                          <TranslateText>{category.charAt(0).toUpperCase() + category.slice(1)}</TranslateText>
                         </option>
                       ))}
                     </select>
@@ -223,7 +228,7 @@ const AddProductPage = () => {
 
                 <div className="sm:col-span-6">
                   <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                    Description
+                    <TranslateText>Description</TranslateText>
                   </label>
                   <div className="mt-1">
                     <textarea
@@ -237,13 +242,13 @@ const AddProductPage = () => {
                     />
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
-                    Describe your product, its quality, and any special features.
+                    <TranslateText>Describe your product, its quality, and any special features.</TranslateText>
                   </p>
                 </div>
 
                 <div className="sm:col-span-2">
                   <label htmlFor="price" className="block text-sm font-medium text-gray-700">
-                    Price (₹)
+                    <TranslateText>Price (₹)</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -262,7 +267,7 @@ const AddProductPage = () => {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="unit" className="block text-sm font-medium text-gray-700">
-                    Unit
+                    <TranslateText>Unit</TranslateText>
                   </label>
                   <div className="mt-1">
                     <select
@@ -275,7 +280,7 @@ const AddProductPage = () => {
                     >
                       {units.map(unit => (
                         <option key={unit} value={unit}>
-                          {unit}
+                          <TranslateText>{unit}</TranslateText>
                         </option>
                       ))}
                     </select>
@@ -284,7 +289,7 @@ const AddProductPage = () => {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
-                    Available Quantity
+                    <TranslateText>Available Quantity</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -302,7 +307,7 @@ const AddProductPage = () => {
 
                 <div className="sm:col-span-3">
                   <label htmlFor="harvestDate" className="block text-sm font-medium text-gray-700">
-                    Harvest Date
+                    <TranslateText>Harvest Date</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -328,14 +333,14 @@ const AddProductPage = () => {
                       className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                     />
                     <label htmlFor="organic" className="ml-2 block text-sm text-gray-900">
-                      This product is organic
+                      <TranslateText>This product is organic</TranslateText>
                     </label>
                   </div>
                 </div>
 
                 <div className="sm:col-span-6">
                   <label className="block text-sm font-medium text-gray-700">
-                    Product Images (Max 5)
+                    <TranslateText>Product Images (Max 5)</TranslateText>
                   </label>
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center">
@@ -358,7 +363,7 @@ const AddProductPage = () => {
                           htmlFor="images"
                           className="relative cursor-pointer bg-white rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500"
                         >
-                          <span>Upload images</span>
+                          <span><TranslateText>Upload images</TranslateText></span>
                           <input
                             id="images"
                             name="images"
@@ -371,10 +376,10 @@ const AddProductPage = () => {
                             required
                           />
                         </label>
-                        <p className="pl-1">or drag and drop</p>
+                        <p className="pl-1"><TranslateText>or drag and drop</TranslateText></p>
                       </div>
                       <p className="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 5MB each
+                        <TranslateText>PNG, JPG, GIF up to 5MB each</TranslateText>
                       </p>
                     </div>
                   </div>
@@ -396,11 +401,15 @@ const AddProductPage = () => {
 
                 {/* Certifications Section */}
                 <div className="sm:col-span-6 border-t pt-5">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Certifications (Optional)</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3">
+                    <TranslateText>Certifications (Optional)</TranslateText>
+                  </h3>
                   
                   {formData.certifications.length > 0 && (
                     <div className="mb-4">
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">Added Certifications</h4>
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">
+                        <TranslateText>Added Certifications</TranslateText>
+                      </h4>
                       <ul className="divide-y divide-gray-200 border rounded-md">
                         {formData.certifications.map((cert, index) => (
                           <li key={index} className="px-4 py-3 flex justify-between items-center">
@@ -409,7 +418,7 @@ const AddProductPage = () => {
                               <p className="text-sm text-gray-500">#{cert.certificationNumber}</p>
                               {cert.issuedDate && cert.expiryDate && (
                                 <p className="text-xs text-gray-500">
-                                  Valid: {new Date(cert.issuedDate).toLocaleDateString()} to {new Date(cert.expiryDate).toLocaleDateString()}
+                                  <TranslateText>Valid:</TranslateText> {new Date(cert.issuedDate).toLocaleDateString()} <TranslateText>to</TranslateText> {new Date(cert.expiryDate).toLocaleDateString()}
                                 </p>
                               )}
                             </div>
@@ -418,7 +427,7 @@ const AddProductPage = () => {
                               onClick={() => handleRemoveCertification(index)}
                               className="text-red-600 hover:text-red-800"
                             >
-                              Remove
+                              <TranslateText>Remove</TranslateText>
                             </button>
                           </li>
                         ))}
@@ -429,7 +438,7 @@ const AddProductPage = () => {
                   <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-6 border p-4 rounded-md bg-gray-50">
                     <div className="sm:col-span-3">
                       <label htmlFor="certName" className="block text-sm font-medium text-gray-700">
-                        Certification Name
+                        <TranslateText>Certification Name</TranslateText>
                       </label>
                       <div className="mt-1">
                         <input
@@ -446,7 +455,7 @@ const AddProductPage = () => {
 
                     <div className="sm:col-span-3">
                       <label htmlFor="certNumber" className="block text-sm font-medium text-gray-700">
-                        Certification Number
+                        <TranslateText>Certification Number</TranslateText>
                       </label>
                       <div className="mt-1">
                         <input
@@ -462,7 +471,7 @@ const AddProductPage = () => {
 
                     <div className="sm:col-span-3">
                       <label htmlFor="issuedDate" className="block text-sm font-medium text-gray-700">
-                        Issued Date
+                        <TranslateText>Issued Date</TranslateText>
                       </label>
                       <div className="mt-1">
                         <input
@@ -478,7 +487,7 @@ const AddProductPage = () => {
 
                     <div className="sm:col-span-3">
                       <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700">
-                        Expiry Date
+                        <TranslateText>Expiry Date</TranslateText>
                       </label>
                       <div className="mt-1">
                         <input
@@ -498,7 +507,7 @@ const AddProductPage = () => {
                         onClick={handleAddCertification}
                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                       >
-                        Add Certification
+                        <TranslateText>Add Certification</TranslateText>
                       </button>
                     </div>
                   </div>
@@ -511,14 +520,14 @@ const AddProductPage = () => {
                 onClick={() => navigate('/dashboard')}
                 className="mr-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
-                Cancel
+                <TranslateText>Cancel</TranslateText>
               </button>
               <button
                 type="submit"
                 disabled={isLoading}
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
-                {isLoading ? 'Saving...' : 'Add Product'}
+                <TranslateText>{isLoading ? 'Saving...' : 'Add Product'}</TranslateText>
               </button>
             </div>
           </form>

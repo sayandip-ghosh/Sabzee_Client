@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { productApi } from '../services/api';
+import TranslateText from '../components/TranslateText';
 
 const EditProductPage = () => {
   const { productId } = useParams();
@@ -185,7 +186,7 @@ const EditProductPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500"></div>
-        <p className="mt-4 text-gray-600">Loading product data...</p>
+        <p className="mt-4 text-gray-600"><TranslateText>Loading product data...</TranslateText></p>
       </div>
     );
   }
@@ -194,15 +195,15 @@ const EditProductPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">Access Denied</h2>
+          <h2 className="text-3xl font-extrabold text-gray-900"><TranslateText>Access Denied</TranslateText></h2>
           <p className="mt-2 text-lg text-gray-600">
-            Only farmers can edit products.
+            <TranslateText>Only farmers can edit products.</TranslateText>
           </p>
           <button
             onClick={() => navigate('/')}
             className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Go to Home
+            <TranslateText>Go to Home</TranslateText>
           </button>
         </div>
       </div>
@@ -213,7 +214,7 @@ const EditProductPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">Error</h2>
+          <h2 className="text-3xl font-extrabold text-gray-900"><TranslateText>Error</TranslateText></h2>
           <p className="mt-2 text-lg text-gray-600">
             {error}
           </p>
@@ -221,7 +222,7 @@ const EditProductPage = () => {
             onClick={() => navigate('/dashboard')}
             className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Back to Dashboard
+            <TranslateText>Back to Dashboard</TranslateText>
           </button>
         </div>
       </div>
@@ -232,9 +233,9 @@ const EditProductPage = () => {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900">Edit Product</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900"><TranslateText>Edit Product</TranslateText></h1>
           <p className="mt-1 text-lg text-gray-500">
-            Update your product information
+            <TranslateText>Update your product information</TranslateText>
           </p>
         </div>
 
@@ -248,14 +249,14 @@ const EditProductPage = () => {
           <form onSubmit={handleSubmit}>
             <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
               <h3 className="text-lg leading-6 font-medium text-gray-900">
-                Product Information
+                <TranslateText>Product Information</TranslateText>
               </h3>
             </div>
             <div className="px-4 py-5 sm:p-6">
               <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 <div className="sm:col-span-3">
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    Product Name
+                    <TranslateText>Product Name</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -272,7 +273,7 @@ const EditProductPage = () => {
 
                 <div className="sm:col-span-3">
                   <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                    Category
+                    <TranslateText>Category</TranslateText>
                   </label>
                   <div className="mt-1">
                     <select
@@ -285,7 +286,7 @@ const EditProductPage = () => {
                     >
                       {categories.map(category => (
                         <option key={category} value={category}>
-                          {category.charAt(0).toUpperCase() + category.slice(1)}
+                          <TranslateText>{category.charAt(0).toUpperCase() + category.slice(1)}</TranslateText>
                         </option>
                       ))}
                     </select>
@@ -294,7 +295,7 @@ const EditProductPage = () => {
 
                 <div className="sm:col-span-6">
                   <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                    Description
+                    <TranslateText>Description</TranslateText>
                   </label>
                   <div className="mt-1">
                     <textarea
@@ -311,7 +312,7 @@ const EditProductPage = () => {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="price" className="block text-sm font-medium text-gray-700">
-                    Price (₹)
+                    <TranslateText>Price (₹)</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -330,7 +331,7 @@ const EditProductPage = () => {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="unit" className="block text-sm font-medium text-gray-700">
-                    Unit
+                    <TranslateText>Unit</TranslateText>
                   </label>
                   <div className="mt-1">
                     <select
@@ -343,7 +344,7 @@ const EditProductPage = () => {
                     >
                       {units.map(unit => (
                         <option key={unit} value={unit}>
-                          {unit}
+                          <TranslateText>{unit}</TranslateText>
                         </option>
                       ))}
                     </select>
@@ -352,7 +353,7 @@ const EditProductPage = () => {
 
                 <div className="sm:col-span-2">
                   <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
-                    Available Quantity
+                    <TranslateText>Available Quantity</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -370,7 +371,7 @@ const EditProductPage = () => {
 
                 <div className="sm:col-span-3">
                   <label htmlFor="harvestDate" className="block text-sm font-medium text-gray-700">
-                    Harvest Date
+                    <TranslateText>Harvest Date</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -396,13 +397,13 @@ const EditProductPage = () => {
                       className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                     />
                     <label htmlFor="organic" className="ml-2 block text-sm text-gray-900">
-                      This product is organic
+                      <TranslateText>This product is organic</TranslateText>
                     </label>
                   </div>
                 </div>
 
                 <div className="sm:col-span-6">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">Current Images</h4>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2"><TranslateText>Current Images</TranslateText></h4>
                   {currentImages.length > 0 ? (
                     <div className="grid grid-cols-5 gap-4">
                       {currentImages.map((image, index) => (
@@ -416,80 +417,17 @@ const EditProductPage = () => {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500">No images available</p>
+                    <p className="text-gray-500"><TranslateText>No images available</TranslateText></p>
                   )}
-                  
-                  {/* Disabled for now - image update requires additional server-side handling */}
-                  {/* 
-                  <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Update Images (Max 5)
-                    </label>
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                      <div className="space-y-1 text-center">
-                        <svg
-                          className="mx-auto h-12 w-12 text-gray-400"
-                          stroke="currentColor"
-                          fill="none"
-                          viewBox="0 0 48 48"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <div className="flex text-sm text-gray-600">
-                          <label
-                            htmlFor="images"
-                            className="relative cursor-pointer bg-white rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500"
-                          >
-                            <span>Upload new images</span>
-                            <input
-                              id="images"
-                              name="images"
-                              type="file"
-                              ref={fileInputRef}
-                              multiple
-                              accept="image/*"
-                              onChange={handleImageChange}
-                              className="sr-only"
-                            />
-                          </label>
-                          <p className="pl-1">or drag and drop</p>
-                        </div>
-                        <p className="text-xs text-gray-500">
-                          PNG, JPG, GIF up to 5MB each
-                        </p>
-                      </div>
-                    </div>
-
-                    {imagePreviews.length > 0 && (
-                      <div className="mt-4 grid grid-cols-5 gap-4">
-                        {imagePreviews.map((preview, index) => (
-                          <div key={index} className="relative">
-                            <img
-                              src={preview}
-                              alt={`New preview ${index + 1}`}
-                              className="h-24 w-24 object-cover rounded-md"
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  */}
                 </div>
 
                 {/* Certifications Section */}
                 <div className="sm:col-span-6 border-t pt-5">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Certifications</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3"><TranslateText>Certifications</TranslateText></h3>
                   
                   {formData.certifications.length > 0 && (
                     <div className="mb-4">
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">Added Certifications</h4>
+                      <h4 className="text-sm font-medium text-gray-700 mb-2"><TranslateText>Added Certifications</TranslateText></h4>
                       <ul className="divide-y divide-gray-200 border rounded-md">
                         {formData.certifications.map((cert, index) => (
                           <li key={index} className="px-4 py-3 flex justify-between items-center">
@@ -498,7 +436,7 @@ const EditProductPage = () => {
                               <p className="text-sm text-gray-500">#{cert.certificationNumber}</p>
                               {cert.issuedDate && cert.expiryDate && (
                                 <p className="text-xs text-gray-500">
-                                  Valid: {new Date(cert.issuedDate).toLocaleDateString()} to {new Date(cert.expiryDate).toLocaleDateString()}
+                                  <TranslateText>Valid:</TranslateText> {new Date(cert.issuedDate).toLocaleDateString()} <TranslateText>to</TranslateText> {new Date(cert.expiryDate).toLocaleDateString()}
                                 </p>
                               )}
                             </div>
@@ -507,7 +445,7 @@ const EditProductPage = () => {
                               onClick={() => handleRemoveCertification(index)}
                               className="text-red-600 hover:text-red-800"
                             >
-                              Remove
+                              <TranslateText>Remove</TranslateText>
                             </button>
                           </li>
                         ))}
@@ -518,7 +456,7 @@ const EditProductPage = () => {
                   <div className="grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-6 border p-4 rounded-md bg-gray-50">
                     <div className="sm:col-span-3">
                       <label htmlFor="certName" className="block text-sm font-medium text-gray-700">
-                        Certification Name
+                        <TranslateText>Certification Name</TranslateText>
                       </label>
                       <div className="mt-1">
                         <input
@@ -535,7 +473,7 @@ const EditProductPage = () => {
 
                     <div className="sm:col-span-3">
                       <label htmlFor="certNumber" className="block text-sm font-medium text-gray-700">
-                        Certification Number
+                        <TranslateText>Certification Number</TranslateText>
                       </label>
                       <div className="mt-1">
                         <input
@@ -551,7 +489,7 @@ const EditProductPage = () => {
 
                     <div className="sm:col-span-3">
                       <label htmlFor="issuedDate" className="block text-sm font-medium text-gray-700">
-                        Issued Date
+                        <TranslateText>Issued Date</TranslateText>
                       </label>
                       <div className="mt-1">
                         <input
@@ -567,7 +505,7 @@ const EditProductPage = () => {
 
                     <div className="sm:col-span-3">
                       <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700">
-                        Expiry Date
+                        <TranslateText>Expiry Date</TranslateText>
                       </label>
                       <div className="mt-1">
                         <input
@@ -587,7 +525,7 @@ const EditProductPage = () => {
                         onClick={handleAddCertification}
                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                       >
-                        Add Certification
+                        <TranslateText>Add Certification</TranslateText>
                       </button>
                     </div>
                   </div>
@@ -600,7 +538,7 @@ const EditProductPage = () => {
                 onClick={handleDeleteProduct}
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               >
-                Delete Product
+                <TranslateText>Delete Product</TranslateText>
               </button>
 
               <div>
@@ -609,14 +547,14 @@ const EditProductPage = () => {
                   onClick={() => navigate(`/products/${productId}`)}
                   className="mr-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  Cancel
+                  <TranslateText>Cancel</TranslateText>
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  {isSaving ? 'Saving...' : 'Save Changes'}
+                  <TranslateText>{isSaving ? 'Saving...' : 'Save Changes'}</TranslateText>
                 </button>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { FaThumbsUp, FaEdit, FaTrash, FaArrowLeft, FaReply } from 'react-icons/fa';
 import { forumApi } from '../services/api';
 import useAuth from '../hooks/useAuth';
+import TranslateText from '../components/TranslateText';
 
 const ForumPostDetail = () => {
   const { postId } = useParams();
@@ -141,12 +142,12 @@ const ForumPostDetail = () => {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Link to="/forum" className="inline-flex items-center text-green-600 hover:text-green-800 mb-6">
-          <FaArrowLeft className="mr-2" /> Back to Forum
+          <FaArrowLeft className="mr-2" /> <TranslateText>Back to Forum</TranslateText>
         </Link>
         <div className="bg-red-50 border-l-4 border-red-400 p-4">
           <div className="flex">
             <div className="ml-3">
-              <p className="text-red-700">{error}</p>
+              <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
             </div>
           </div>
         </div>
@@ -158,10 +159,10 @@ const ForumPostDetail = () => {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Link to="/forum" className="inline-flex items-center text-green-600 hover:text-green-800 mb-6">
-          <FaArrowLeft className="mr-2" /> Back to Forum
+          <FaArrowLeft className="mr-2" /> <TranslateText>Back to Forum</TranslateText>
         </Link>
         <div className="text-center py-12">
-          <p className="text-gray-600">Post not found.</p>
+          <p className="text-gray-600"><TranslateText>Post not found.</TranslateText></p>
         </div>
       </div>
     );
@@ -170,13 +171,15 @@ const ForumPostDetail = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Link to="/forum" className="inline-flex items-center text-green-600 hover:text-green-800 mb-6">
-        <FaArrowLeft className="mr-2" /> Back to Forum
+        <FaArrowLeft className="mr-2" /> <TranslateText>Back to Forum</TranslateText>
       </Link>
 
       {/* Post card */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="flex justify-between items-start mb-4">
-          <h1 className="text-2xl font-bold text-gray-800">{post.title}</h1>
+          <h1 className="text-2xl font-bold text-gray-800">
+            <TranslateText>{post.title}</TranslateText>
+          </h1>
           
           {isAuthor && (
             <div className="flex space-x-2">
@@ -224,7 +227,9 @@ const ForumPostDetail = () => {
         
         {/* Post content */}
         <div className="prose max-w-none mb-6">
-          <p className="text-gray-700 whitespace-pre-line">{post.content}</p>
+          <p className="text-gray-700 whitespace-pre-line">
+            <TranslateText>{post.content}</TranslateText>
+          </p>
         </div>
         
         {/* Like button */}
@@ -237,17 +242,27 @@ const ForumPostDetail = () => {
             }`}
           >
             <FaThumbsUp className="mr-2" />
-            <span>{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</span>
+            <span>
+              <TranslateText>
+                {post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+              </TranslateText>
+            </span>
           </button>
           <div className="text-gray-500">
-            <span>{post.commentCount} {post.commentCount === 1 ? 'Comment' : 'Comments'}</span>
+            <span>
+              <TranslateText>
+                {post.commentCount} {post.commentCount === 1 ? 'Comment' : 'Comments'}
+              </TranslateText>
+            </span>
           </div>
         </div>
       </div>
       
       {/* Add comment form */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Add a Comment</h2>
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+          <TranslateText>Add a Comment</TranslateText>
+        </h2>
         <form onSubmit={handleCommentSubmit}>
           <div className="mb-4">
             <textarea
@@ -267,7 +282,7 @@ const ForumPostDetail = () => {
                 submitting || !comment.trim() ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'
               }`}
             >
-              {submitting ? 'Posting...' : 'Post Comment'}
+              <TranslateText>{submitting ? 'Posting...' : 'Post Comment'}</TranslateText>
             </button>
           </div>
         </form>
@@ -276,11 +291,13 @@ const ForumPostDetail = () => {
       {/* Comments section */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Comments ({post.commentCount})
+          <TranslateText>Comments ({post.commentCount})</TranslateText>
         </h2>
         
         {post.comments.length === 0 ? (
-          <p className="text-gray-500 text-center py-6">No comments yet. Be the first to comment!</p>
+          <p className="text-gray-500 text-center py-6">
+            <TranslateText>No comments yet. Be the first to comment!</TranslateText>
+          </p>
         ) : (
           <div className="space-y-6">
             {post.comments.map((comment) => (
@@ -309,7 +326,7 @@ const ForumPostDetail = () => {
                         <p className="text-sm text-gray-500">{formatDate(comment.createdAt)}</p>
                       </div>
                       <div className="mt-1 text-sm text-gray-700 whitespace-pre-line">
-                        {comment.content}
+                        <TranslateText>{comment.content}</TranslateText>
                       </div>
                     </div>
                   </div>

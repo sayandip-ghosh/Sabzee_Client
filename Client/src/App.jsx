@@ -1,5 +1,7 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -24,50 +26,52 @@ import CartPage from './pages/CartPage';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/products/:productId" element={<ProductDetailPage />} />
-              <Route path="/products/:productId/edit" element={<EditProductPage />} />
-              <Route path="/add-product" element={<AddProductPage />} />
-              <Route path="/dashboard" element={<FarmerDashboard />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/crop-scan" element={<CropScanPage />} />
-              <Route path="/crop-scan-history" element={<CropScanHistoryPage />} />
-              <Route path="/crop-scan/:predictionId" element={<CropScanDetailPage />} />
-              <Route path="/yield-prediction" element={<YieldPredictionPage />} />
-              <Route path="/yield-prediction-history" element={<YieldPredictionHistoryPage />} />
-              <Route path="/yield-prediction/:predictionId" element={<YieldPredictionDetailPage />} />
-              <Route path="/forum" element={<ForumPage />} />
-              <Route path="/forum/:postId" element={<ForumPostDetail />} />
-              <Route path="/forum/create" element={<CreateForumPost />} />
-              <Route path="/forum/:postId/edit" element={<EditForumPost />} />
-              <Route path="/cart" element={<CartPage />} />
-            </Routes>
-          </main>
-          <footer className="bg-gray-800 text-white py-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-col md:flex-row justify-between items-center">
-                <div className="mb-4 md:mb-0">
-                  <h2 className="text-xl font-bold">Sabzee</h2>
-                  <p className="text-sm text-gray-400 mt-1">Farm to consumer, directly.</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Sabzee. All rights reserved.</p>
+    <LanguageProvider>
+      <AuthProvider>
+        <Router>
+          <div className="min-h-screen bg-gray-50">
+            <Navbar />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/products/:productId" element={<ProductDetailPage />} />
+                <Route path="/products/:productId/edit" element={<EditProductPage />} />
+                <Route path="/add-product" element={<AddProductPage />} />
+                <Route path="/dashboard" element={<FarmerDashboard />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/crop-scan" element={<CropScanPage />} />
+                <Route path="/crop-scan-history" element={<CropScanHistoryPage />} />
+                <Route path="/crop-scan/:predictionId" element={<CropScanDetailPage />} />
+                <Route path="/yield-prediction" element={<YieldPredictionPage />} />
+                <Route path="/yield-prediction-history" element={<YieldPredictionHistoryPage />} />
+                <Route path="/yield-prediction/:predictionId" element={<YieldPredictionDetailPage />} />
+                <Route path="/forum" element={<ForumPage />} />
+                <Route path="/forum/:postId" element={<ForumPostDetail />} />
+                <Route path="/forum/create" element={<CreateForumPost />} />
+                <Route path="/forum/:postId/edit" element={<EditForumPost />} />
+                <Route path="/cart" element={<CartPage />} />
+              </Routes>
+            </main>
+            <footer className="bg-gray-800 text-white py-6">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col md:flex-row justify-between items-center">
+                  <div className="mb-4 md:mb-0">
+                    <h2 className="text-xl font-bold">Sabzee</h2>
+                    <p className="text-sm text-gray-400 mt-1">Farm to consumer, directly.</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Sabzee. All rights reserved.</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </footer>
-        </div>
-      </Router>
-    </AuthProvider>
+            </footer>
+          </div>
+        </Router>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
 

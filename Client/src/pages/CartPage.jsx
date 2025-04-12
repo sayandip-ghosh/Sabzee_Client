@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 import { cartApi, orderApi } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
+import TranslateText from '../components/TranslateText';
 
 const CartPage = () => {
   const { user, isAuthenticated } = useAuth();
@@ -160,7 +161,7 @@ const CartPage = () => {
         <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
           <div className="flex">
             <div className="ml-3">
-              <p className="text-red-700">{error}</p>
+              <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
             </div>
           </div>
         </div>
@@ -168,7 +169,7 @@ const CartPage = () => {
           onClick={() => window.location.reload()}
           className="text-green-600 hover:text-green-800 font-medium"
         >
-          Try again
+          <TranslateText>Try again</TranslateText>
         </button>
       </div>
     );
@@ -179,16 +180,20 @@ const CartPage = () => {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link to="/products" className="text-green-600 hover:text-green-800 flex items-center mb-6">
-          <FaArrowLeft className="mr-2" /> Continue Shopping
+          <FaArrowLeft className="mr-2" /> <TranslateText>Continue Shopping</TranslateText>
         </Link>
         <div className="bg-white rounded-lg shadow-sm p-6 text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Your Cart is Empty</h1>
-          <p className="text-gray-600 mb-6">Looks like you haven't added any products to your cart yet.</p>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">
+            <TranslateText>Your Cart is Empty</TranslateText>
+          </h1>
+          <p className="text-gray-600 mb-6">
+            <TranslateText>Looks like you haven't added any products to your cart yet.</TranslateText>
+          </p>
           <Link
             to="/products"
             className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg"
           >
-            Browse Products
+            <TranslateText>Browse Products</TranslateText>
           </Link>
         </div>
       </div>
@@ -198,16 +203,18 @@ const CartPage = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Link to="/products" className="text-green-600 hover:text-green-800 flex items-center mb-6">
-        <FaArrowLeft className="mr-2" /> Continue Shopping
+        <FaArrowLeft className="mr-2" /> <TranslateText>Continue Shopping</TranslateText>
       </Link>
       
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Your Shopping Cart</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+        <TranslateText>Your Shopping Cart</TranslateText>
+      </h1>
       
       {error && (
         <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
           <div className="flex">
             <div className="ml-3">
-              <p className="text-red-700">{error}</p>
+              <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
             </div>
           </div>
         </div>
@@ -217,13 +224,13 @@ const CartPage = () => {
         {/* Cart header */}
         <div className="hidden md:flex bg-gray-50 border-b border-gray-200 px-6 py-4">
           <div className="flex-grow">
-            <h3 className="text-sm font-medium text-gray-500">PRODUCT</h3>
+            <h3 className="text-sm font-medium text-gray-500"><TranslateText>PRODUCT</TranslateText></h3>
           </div>
           <div className="w-32 text-center">
-            <h3 className="text-sm font-medium text-gray-500">QUANTITY</h3>
+            <h3 className="text-sm font-medium text-gray-500"><TranslateText>QUANTITY</TranslateText></h3>
           </div>
           <div className="w-32 text-right mr-20 pr-5">
-            <h3 className="text-sm font-medium text-gray-500">PRICE</h3>
+            <h3 className="text-sm font-medium text-gray-500"><TranslateText>PRICE</TranslateText></h3>
           </div>
         </div>
         
@@ -242,7 +249,7 @@ const CartPage = () => {
                     />
                   ) : (
                     <div className="h-full w-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-500 text-xs">No image</span>
+                      <span className="text-gray-500 text-xs"><TranslateText>No image</TranslateText></span>
                     </div>
                   )}
                 </div>
@@ -250,14 +257,16 @@ const CartPage = () => {
                   <div>
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <h3>
-                        <Link to={`/products/${item.product._id}`}>{item.product.name}</Link>
+                        <Link to={`/products/${item.product._id}`}><TranslateText>{item.product.name}</TranslateText></Link>
                       </h3>
                       <p className="ml-4 md:hidden">₹{item.product.price} / {item.product.unit}</p>
                     </div>
-                    <p className="mt-1 text-sm text-gray-500">Farmer: {item.product.farmer.name}</p>
+                    <p className="mt-1 text-sm text-gray-500">
+                      <TranslateText>Farmer:</TranslateText> {item.product.farmer.name}
+                    </p>
                     {item.product.organic && (
                       <span className="mt-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                        Organic
+                        <TranslateText>Organic</TranslateText>
                       </span>
                     )}
                   </div>
@@ -296,7 +305,9 @@ const CartPage = () => {
               {/* Price */}
               <div className="hidden md:block w-32 text-right">
                 <p className="text-base text-gray-900">₹{item.product.price} / {item.product.unit}</p>
-                <p className="text-sm text-gray-500">Total: ₹{item.product.price * item.quantity}</p>
+                <p className="text-sm text-gray-500">
+                  <TranslateText>Total:</TranslateText> ₹{item.product.price * item.quantity}
+                </p>
               </div>
               
               {/* Actions */}
@@ -319,7 +330,7 @@ const CartPage = () => {
         {/* Cart summary */}
         <div className="bg-gray-50 px-6 py-4">
           <div className="flex justify-between text-base font-medium text-gray-900">
-            <p>Total</p>
+            <p><TranslateText>Total</TranslateText></p>
             <p>₹{cart.total}</p>
           </div>
           <div className="mt-6">
@@ -330,7 +341,7 @@ const CartPage = () => {
                 checkingOut ? 'opacity-75 cursor-not-allowed' : ''
               }`}
             >
-              {checkingOut ? 'Processing...' : 'Place Order'}
+              {checkingOut ? <TranslateText>Processing...</TranslateText> : <TranslateText>Place Order</TranslateText>}
             </button>
           </div>
         </div>

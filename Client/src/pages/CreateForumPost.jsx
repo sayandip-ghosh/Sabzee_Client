@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { forumApi } from '../services/api';
 import useAuth from '../hooks/useAuth';
+import TranslateText from '../components/TranslateText';
 
 const CreateForumPost = () => {
   const { user } = useAuth();
@@ -93,17 +94,19 @@ const CreateForumPost = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Link to="/forum" className="inline-flex items-center text-green-600 hover:text-green-800 mb-6">
-        <FaArrowLeft className="mr-2" /> Back to Forum
+        <FaArrowLeft className="mr-2" /> <TranslateText>Back to Forum</TranslateText>
       </Link>
       
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Create New Post</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-6">
+          <TranslateText>Create New Post</TranslateText>
+        </h1>
         
         {errorMessage && (
           <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
             <div className="flex">
               <div className="ml-3">
-                <p className="text-red-700">{errorMessage}</p>
+                <p className="text-red-700"><TranslateText>{errorMessage}</TranslateText></p>
               </div>
             </div>
           </div>
@@ -112,7 +115,7 @@ const CreateForumPost = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-              Title <span className="text-red-500">*</span>
+              <TranslateText>Title</TranslateText> <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -126,13 +129,13 @@ const CreateForumPost = () => {
               } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500`}
             />
             {errors.title && (
-              <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+              <p className="mt-1 text-sm text-red-600"><TranslateText>{errors.title}</TranslateText></p>
             )}
           </div>
           
           <div className="mb-6">
             <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
-              Content <span className="text-red-500">*</span>
+              <TranslateText>Content</TranslateText> <span className="text-red-500">*</span>
             </label>
             <textarea
               id="content"
@@ -146,7 +149,7 @@ const CreateForumPost = () => {
               } rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500`}
             ></textarea>
             {errors.content && (
-              <p className="mt-1 text-sm text-red-600">{errors.content}</p>
+              <p className="mt-1 text-sm text-red-600"><TranslateText>{errors.content}</TranslateText></p>
             )}
           </div>
           
@@ -155,7 +158,7 @@ const CreateForumPost = () => {
               to="/forum"
               className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md mr-2 hover:bg-gray-50"
             >
-              Cancel
+              <TranslateText>Cancel</TranslateText>
             </Link>
             <button
               type="submit"
@@ -164,7 +167,7 @@ const CreateForumPost = () => {
                 loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'
               }`}
             >
-              {loading ? 'Creating...' : 'Create Post'}
+              <TranslateText>{loading ? 'Creating...' : 'Create Post'}</TranslateText>
             </button>
           </div>
         </form>

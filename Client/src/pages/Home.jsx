@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { productApi } from '../services/api';
 import ProductCard from '../components/ProductCard';
+import TranslateText from '../components/TranslateText';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -39,11 +40,11 @@ const Home = () => {
             <div className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="sm:text-center lg:text-left">
                 <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
-                  <span className="block">Fresh produce</span>
-                  <span className="block text-green-200">direct from farmers</span>
+                  <span className="block"><TranslateText>Fresh produce</TranslateText></span>
+                  <span className="block text-green-200"><TranslateText>direct from farmers</TranslateText></span>
                 </h1>
                 <p className="mt-3 text-base text-green-100 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Connect directly with local farmers, eliminate middlemen, and get fresh, quality produce at fair prices.
+                  <TranslateText>Connect directly with local farmers, eliminate middlemen, and get fresh, quality produce at fair prices.</TranslateText>
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
@@ -51,7 +52,7 @@ const Home = () => {
                       to="/products"
                       className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-green-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                     >
-                      Browse Products
+                      <TranslateText>Browse Products</TranslateText>
                     </Link>
                   </div>
                   <div className="mt-3 sm:mt-0 sm:ml-3">
@@ -59,7 +60,7 @@ const Home = () => {
                       to="/farmers"
                       className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-700 hover:bg-green-800 md:py-4 md:text-lg md:px-10"
                     >
-                      Meet the Farmers
+                      <TranslateText>Meet the Farmers</TranslateText>
                     </Link>
                   </div>
                 </div>
@@ -80,12 +81,14 @@ const Home = () => {
       <div className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
-            <h2 className="text-base text-green-600 font-semibold tracking-wide uppercase">Features</h2>
+            <h2 className="text-base text-green-600 font-semibold tracking-wide uppercase">
+              <TranslateText>Features</TranslateText>
+            </h2>
             <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              A better way to buy fresh produce
+              <TranslateText>A better way to buy fresh produce</TranslateText>
             </p>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-              Our platform provides unique features that benefit both farmers and consumers.
+              <TranslateText>Our platform provides unique features that benefit both farmers and consumers.</TranslateText>
             </p>
           </div>
 
@@ -98,9 +101,11 @@ const Home = () => {
                   </svg>
                 </div>
                 <div className="mt-5 md:ml-4 md:mt-0 lg:ml-0 lg:mt-5 text-center md:text-left">
-                  <h3 className="text-lg font-medium text-gray-900">Direct from Farm</h3>
+                  <h3 className="text-lg font-medium text-gray-900">
+                    <TranslateText>Direct from Farm</TranslateText>
+                  </h3>
                   <p className="mt-2 text-base text-gray-500">
-                    Get fresh produce directly from local farmers without any middlemen.
+                    <TranslateText>Get fresh produce directly from local farmers without any middlemen.</TranslateText>
                   </p>
                 </div>
               </div>
@@ -112,9 +117,11 @@ const Home = () => {
                   </svg>
                 </div>
                 <div className="mt-5 md:ml-4 md:mt-0 lg:ml-0 lg:mt-5 text-center md:text-left">
-                  <h3 className="text-lg font-medium text-gray-900">AI Crop Analysis</h3>
+                  <h3 className="text-lg font-medium text-gray-900">
+                    <TranslateText>AI Crop Analysis</TranslateText>
+                  </h3>
                   <p className="mt-2 text-base text-gray-500">
-                    Farmers can detect crop diseases and get AI-powered recommendations for better yields.
+                    <TranslateText>Farmers can detect crop diseases and get AI-powered recommendations for better yields.</TranslateText>
                   </p>
                 </div>
               </div>
@@ -126,9 +133,11 @@ const Home = () => {
                   </svg>
                 </div>
                 <div className="mt-5 md:ml-4 md:mt-0 lg:ml-0 lg:mt-5 text-center md:text-left">
-                  <h3 className="text-lg font-medium text-gray-900">Fair Pricing</h3>
+                  <h3 className="text-lg font-medium text-gray-900">
+                    <TranslateText>Fair Pricing</TranslateText>
+                  </h3>
                   <p className="mt-2 text-base text-gray-500">
-                    Farmers earn more, while consumers pay less by eliminating unnecessary middlemen.
+                    <TranslateText>Farmers earn more, while consumers pay less by eliminating unnecessary middlemen.</TranslateText>
                   </p>
                 </div>
               </div>
@@ -141,9 +150,11 @@ const Home = () => {
       <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">Featured Products</h2>
+            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
+              <TranslateText>Featured Products</TranslateText>
+            </h2>
             <Link to="/products" className="text-green-600 hover:text-green-500">
-              View all
+              <TranslateText>View all</TranslateText>
             </Link>
           </div>
 
@@ -153,7 +164,7 @@ const Home = () => {
             </div>
           ) : error ? (
             <div className="bg-red-50 border-l-4 border-red-500 p-4 my-4">
-              <p className="text-red-700">{error}</p>
+              <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -169,8 +180,10 @@ const Home = () => {
       <div className="bg-green-700">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
           <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            <span className="block">Ready to get started?</span>
-            <span className="block text-green-200">Register today as a farmer or consumer.</span>
+            <span className="block"><TranslateText>Ready to get started?</TranslateText></span>
+            <span className="block text-green-200">
+              <TranslateText>Register today as a farmer or consumer.</TranslateText>
+            </span>
           </h2>
           <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
             <div className="inline-flex rounded-md shadow">
@@ -178,7 +191,7 @@ const Home = () => {
                 to="/register"
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-green-700 bg-white hover:bg-green-50"
               >
-                Get Started
+                <TranslateText>Get Started</TranslateText>
               </Link>
             </div>
             <div className="ml-3 inline-flex rounded-md shadow">
@@ -186,7 +199,7 @@ const Home = () => {
                 to="/about"
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-500"
               >
-                Learn more
+                <TranslateText>Learn more</TranslateText>
               </Link>
             </div>
           </div>

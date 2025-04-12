@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import TranslateText from '../components/TranslateText';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const Login = () => {
       await login(email, password);
       navigate('/');
     } catch (error) {
-      setFormError(error.response?.data?.message || 'Login failed. Please try again.');
+      setFormError(error.response?.data?.message || <TranslateText>Login failed. Please try again.</TranslateText>);
     }
   };
 
@@ -33,12 +34,12 @@ const Login = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your account
+          <TranslateText>Login to your account</TranslateText>
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
+          <TranslateText>Or</TranslateText>{' '}
           <Link to="/register" className="font-medium text-green-600 hover:text-green-500">
-            create a new account
+            <TranslateText>create a new account</TranslateText>
           </Link>
         </p>
       </div>
@@ -53,7 +54,7 @@ const Login = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
+                <TranslateText>Email address</TranslateText>
               </label>
               <div className="mt-1">
                 <input
@@ -71,7 +72,7 @@ const Login = () => {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
+                <TranslateText>Password</TranslateText>
               </label>
               <div className="mt-1">
                 <input
@@ -95,7 +96,7 @@ const Login = () => {
                   loading ? 'opacity-70 cursor-not-allowed' : ''
                 }`}
               >
-                {loading ? 'Logging in...' : 'Login'}
+                {loading ? <TranslateText>Logging in...</TranslateText> : <TranslateText>Login</TranslateText>}
               </button>
             </div>
           </form>

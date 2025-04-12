@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { yieldPredictionApi } from '../services/api';
+import TranslateText from '../components/TranslateText';
 
 const YieldPredictionPage = () => {
   const { user } = useAuth();
@@ -33,17 +34,17 @@ const YieldPredictionPage = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Access Denied
+            <TranslateText>Access Denied</TranslateText>
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Only farmers can access the yield prediction tool.
+            <TranslateText>Only farmers can access the yield prediction tool.</TranslateText>
           </p>
           <div className="mt-5 flex justify-center">
             <Link
               to="/dashboard"
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Back to Dashboard
+              <TranslateText>Back to Dashboard</TranslateText>
             </Link>
           </div>
         </div>
@@ -292,22 +293,22 @@ const YieldPredictionPage = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-extrabold text-gray-900">Crop Yield Prediction</h1>
+            <h1 className="text-3xl font-extrabold text-gray-900"><TranslateText>Crop Yield Prediction</TranslateText></h1>
             <p className="mt-2 text-lg text-gray-600">
-              Predict your crop yield and get recommendations based on your farm conditions
+              <TranslateText>Predict your crop yield and get recommendations based on your farm conditions</TranslateText>
             </p>
           </div>
           <button
             onClick={handleViewHistory}
             className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
-            View History
+            <TranslateText>View History</TranslateText>
           </button>
         </div>
         
         {error && (
           <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4">
-            <p className="text-red-700">{error}</p>
+            <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
           </div>
         )}
         
@@ -317,7 +318,7 @@ const YieldPredictionPage = () => {
               {/* Location Section */}
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-medium text-gray-900">Farm Location</h3>
+                  <h3 className="text-lg font-medium text-gray-900"><TranslateText>Farm Location</TranslateText></h3>
                   <div className="flex items-center">
                     <input
                       type="checkbox"
@@ -327,7 +328,7 @@ const YieldPredictionPage = () => {
                       className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                     />
                     <label htmlFor="useCurrentLocation" className="ml-2 block text-sm text-gray-700">
-                      Use my current location
+                      <TranslateText>Use my current location</TranslateText>
                     </label>
                   </div>
                 </div>
@@ -337,7 +338,7 @@ const YieldPredictionPage = () => {
                   <div ref={mapContainerRef} className="w-full h-full">
                     {!mapLoaded && (
                       <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                        <p className="text-gray-500">Loading map...</p>
+                        <p className="text-gray-500"><TranslateText>Loading map...</TranslateText></p>
                       </div>
                     )}
                   </div>
@@ -346,7 +347,7 @@ const YieldPredictionPage = () => {
                 {locationName && (
                   <div className="mb-4 px-3 py-2 bg-green-50 border border-green-200 rounded-md">
                     <p className="text-sm text-green-800">
-                      <span className="font-semibold">Selected location:</span> {locationName}
+                      <span className="font-semibold"><TranslateText>Selected location:</TranslateText></span> {locationName}
                     </p>
                   </div>
                 )}
@@ -354,7 +355,7 @@ const YieldPredictionPage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="latitude" className="block text-sm font-medium text-gray-700">
-                      Latitude
+                      <TranslateText>Latitude</TranslateText>
                     </label>
                     <input
                       type="text"
@@ -370,7 +371,7 @@ const YieldPredictionPage = () => {
                   </div>
                   <div>
                     <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">
-                      Longitude
+                      <TranslateText>Longitude</TranslateText>
                     </label>
                     <input
                       type="text"
@@ -386,18 +387,18 @@ const YieldPredictionPage = () => {
                   </div>
                 </div>
                 <p className="mt-1 text-xs text-gray-500">
-                  Select a location by clicking on the map or enter coordinates manually
+                  <TranslateText>Select a location by clicking on the map or enter coordinates manually</TranslateText>
                 </p>
               </div>
               
               {/* Crop Information Section */}
               <div className="mb-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Crop Information</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4"><TranslateText>Crop Information</TranslateText></h3>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="crop" className="block text-sm font-medium text-gray-700">
-                      Crop Name
+                      <TranslateText>Crop Name</TranslateText>
                     </label>
                     <select
                       name="crop"
@@ -407,22 +408,22 @@ const YieldPredictionPage = () => {
                       className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                       required
                     >
-                      <option value="">Select a crop</option>
-                      <option value="Rice">Rice</option>
-                      <option value="Wheat">Wheat</option>
-                      <option value="Maize">Maize</option>
-                      <option value="Sugarcane">Sugarcane</option>
-                      <option value="Cotton">Cotton</option>
-                      <option value="Soybeans">Soybeans</option>
-                      <option value="Potatoes">Potatoes</option>
-                      <option value="Tomatoes">Tomatoes</option>
-                      <option value="Onions">Onions</option>
-                      <option value="Chillies">Chillies</option>
+                      <option value=""><TranslateText>Select a crop</TranslateText></option>
+                      <option value="Rice"><TranslateText>Rice</TranslateText></option>
+                      <option value="Wheat"><TranslateText>Wheat</TranslateText></option>
+                      <option value="Maize"><TranslateText>Maize</TranslateText></option>
+                      <option value="Sugarcane"><TranslateText>Sugarcane</TranslateText></option>
+                      <option value="Cotton"><TranslateText>Cotton</TranslateText></option>
+                      <option value="Soybeans"><TranslateText>Soybeans</TranslateText></option>
+                      <option value="Potatoes"><TranslateText>Potatoes</TranslateText></option>
+                      <option value="Tomatoes"><TranslateText>Tomatoes</TranslateText></option>
+                      <option value="Onions"><TranslateText>Onions</TranslateText></option>
+                      <option value="Chillies"><TranslateText>Chillies</TranslateText></option>
                     </select>
                   </div>
                   <div>
                     <label htmlFor="season" className="block text-sm font-medium text-gray-700">
-                      Growing Season
+                      <TranslateText>Growing Season</TranslateText>
                     </label>
                     <select
                       name="season"
@@ -432,9 +433,9 @@ const YieldPredictionPage = () => {
                       className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                       required
                     >
-                      <option value="Rabi">Rabi (Winter)</option>
-                      <option value="Kharif">Kharif (Monsoon)</option>
-                      <option value="Zaid">Zaid (Summer)</option>
+                      <option value="Rabi"><TranslateText>Rabi (Winter)</TranslateText></option>
+                      <option value="Kharif"><TranslateText>Kharif (Monsoon)</TranslateText></option>
+                      <option value="Zaid"><TranslateText>Zaid (Summer)</TranslateText></option>
                     </select>
                   </div>
                 </div>
@@ -442,12 +443,12 @@ const YieldPredictionPage = () => {
               
               {/* Land Information Section */}
               <div className="mb-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Land Information</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4"><TranslateText>Land Information</TranslateText></h3>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="area_of_land" className="block text-sm font-medium text-gray-700">
-                      Land Area (Acres)
+                      <TranslateText>Land Area (Acres)</TranslateText>
                     </label>
                     <input
                       type="number"
@@ -464,7 +465,7 @@ const YieldPredictionPage = () => {
                   </div>
                   <div>
                     <label htmlFor="soil_type" className="block text-sm font-medium text-gray-700">
-                      Soil Type
+                      <TranslateText>Soil Type</TranslateText>
                     </label>
                     <select
                       name="soil_type"
@@ -474,12 +475,12 @@ const YieldPredictionPage = () => {
                       className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                       required
                     >
-                      <option value="Loamy">Loamy</option>
-                      <option value="Clay">Clay</option>
-                      <option value="Sandy">Sandy</option>
-                      <option value="Silt">Silt</option>
-                      <option value="Black">Black</option>
-                      <option value="Red">Red</option>
+                      <option value="Loamy"><TranslateText>Loamy</TranslateText></option>
+                      <option value="Clay"><TranslateText>Clay</TranslateText></option>
+                      <option value="Sandy"><TranslateText>Sandy</TranslateText></option>
+                      <option value="Silt"><TranslateText>Silt</TranslateText></option>
+                      <option value="Black"><TranslateText>Black</TranslateText></option>
+                      <option value="Red"><TranslateText>Red</TranslateText></option>
                     </select>
                   </div>
                 </div>
@@ -500,10 +501,10 @@ const YieldPredictionPage = () => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Processing...
+                      <TranslateText>Processing...</TranslateText>
                     </>
                   ) : (
-                    'Predict Yield'
+                    <TranslateText>Predict Yield</TranslateText>
                   )}
                 </button>
               </div>
@@ -515,50 +516,50 @@ const YieldPredictionPage = () => {
         {prediction && (
           <div id="prediction-results" className="mt-8 bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6 bg-green-50">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">Prediction Results</h3>
+              <h3 className="text-lg leading-6 font-medium text-gray-900"><TranslateText>Prediction Results</TranslateText></h3>
               <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                Based on your farm location and crop details
+                <TranslateText>Based on your farm location and crop details</TranslateText>
               </p>
             </div>
             <div className="border-t border-gray-200 px-4 py-5 sm:p-6">
               <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-gray-500">Predicted Yield</dt>
+                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Predicted Yield</TranslateText></dt>
                   <dd className="mt-1">
                     <div className="text-3xl font-bold text-green-600">
-                      {prediction.predicted_yield_kg.toLocaleString()} kg
+                      {prediction.predicted_yield_kg.toLocaleString()} <TranslateText>kg</TranslateText>
                     </div>
                     <p className="text-sm text-gray-500 mt-1">
-                      ({(prediction.confidence * 100).toFixed(0)}% confidence)
+                      ({(prediction.confidence * 100).toFixed(0)}% <TranslateText>confidence</TranslateText>)
                       {prediction.isMock && 
-                        <span className="ml-2 text-yellow-600">(using feature-based prediction)</span>
+                        <span className="ml-2 text-yellow-600">(<TranslateText>using feature-based prediction</TranslateText>)</span>
                       }
                     </p>
                   </dd>
                 </div>
                 
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Crop</dt>
+                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Crop</TranslateText></dt>
                   <dd className="mt-1 text-sm text-gray-900">{formData.crop}</dd>
                 </div>
                 
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Area</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{formData.area_of_land} acres</dd>
+                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Area</TranslateText></dt>
+                  <dd className="mt-1 text-sm text-gray-900">{formData.area_of_land} <TranslateText>acres</TranslateText></dd>
                 </div>
                 
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Season</dt>
+                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Season</TranslateText></dt>
                   <dd className="mt-1 text-sm text-gray-900">{formData.season}</dd>
                 </div>
                 
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Soil Type</dt>
+                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Soil Type</TranslateText></dt>
                   <dd className="mt-1 text-sm text-gray-900">{formData.soil_type}</dd>
                 </div>
                 
                 <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-gray-500">Weather Conditions</dt>
+                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Weather Conditions</TranslateText></dt>
                   <dd className="mt-1 text-sm text-gray-900">
                     <div className="bg-gray-50 p-4 rounded-lg">
                       <div className="flex flex-col">
@@ -596,26 +597,26 @@ const YieldPredictionPage = () => {
                             <svg className="h-5 w-5 text-yellow-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
-                            <span>Temperature: <strong>{prediction.weather.temperature}°C</strong></span>
+                            <span><TranslateText>Temperature:</TranslateText> <strong>{prediction.weather.temperature}°C</strong></span>
                           </div>
                           <div className="flex items-center">
                             <svg className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
-                            <span>Humidity: <strong>{prediction.weather.humidity}%</strong></span>
+                            <span><TranslateText>Humidity:</TranslateText> <strong>{prediction.weather.humidity}%</strong></span>
                           </div>
                           <div className="flex items-center">
                             <svg className="h-5 w-5 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
                             </svg>
-                            <span>Rainfall: <strong>{prediction.weather.rainfall} mm</strong></span>
+                            <span><TranslateText>Rainfall:</TranslateText> <strong>{prediction.weather.rainfall} mm</strong></span>
                           </div>
                           {prediction.weather.wind_speed !== undefined && (
                             <div className="flex items-center">
                               <svg className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                               </svg>
-                              <span>Wind: <strong>{prediction.weather.wind_speed} m/s</strong></span>
+                              <span><TranslateText>Wind:</TranslateText> <strong>{prediction.weather.wind_speed} m/s</strong></span>
                             </div>
                           )}
                           {prediction.weather.timestamp && (
@@ -623,7 +624,7 @@ const YieldPredictionPage = () => {
                               <svg className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
-                              <span>Last updated: <strong>{new Date(prediction.weather.timestamp).toLocaleString()}</strong></span>
+                              <span><TranslateText>Last updated:</TranslateText> <strong>{new Date(prediction.weather.timestamp).toLocaleString()}</strong></span>
                             </div>
                           )}
                         </div>
@@ -635,42 +636,42 @@ const YieldPredictionPage = () => {
                         <svg className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        Using real-time weather data from OpenWeatherMap for this location
+                        <TranslateText>Using real-time weather data from OpenWeatherMap for this location</TranslateText>
                       </div>
                     ) : (
                       <div className="mt-2 flex items-center text-sm text-yellow-700 bg-yellow-50 p-2 rounded-md">
                         <svg className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
-                        Using estimated weather data (OpenWeatherMap API key not configured)
+                        <TranslateText>Using estimated weather data (OpenWeatherMap API key not configured)</TranslateText>
                       </div>
                     )}
                   </dd>
                 </div>
                 
                 <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-gray-500">Location Data</dt>
+                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Location Data</TranslateText></dt>
                   <dd className="mt-1 text-sm text-gray-900">
                     <div className="flex flex-col space-y-2">
                       <div>
-                        <span className="text-gray-500">Coordinates: </span>
+                        <span className="text-gray-500"><TranslateText>Coordinates:</TranslateText> </span>
                         <strong>{formData.latitude}, {formData.longitude}</strong>
                       </div>
                       {locationName && (
                         <div>
-                          <span className="text-gray-500">Location: </span>
+                          <span className="text-gray-500"><TranslateText>Location:</TranslateText> </span>
                           <strong>{locationName}</strong>
                         </div>
                       )}
                       {formData.location_details?.district && (
                         <div>
-                          <span className="text-gray-500">District: </span>
+                          <span className="text-gray-500"><TranslateText>District:</TranslateText> </span>
                           <strong>{formData.location_details.district}</strong>
                         </div>
                       )}
                       {formData.location_details?.state && (
                         <div>
-                          <span className="text-gray-500">State: </span>
+                          <span className="text-gray-500"><TranslateText>State:</TranslateText> </span>
                           <strong>{formData.location_details.state}</strong>
                         </div>
                       )}
@@ -679,7 +680,7 @@ const YieldPredictionPage = () => {
                 </div>
                 
                 <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-gray-500">Recommended Alternative Crops</dt>
+                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Recommended Alternative Crops</TranslateText></dt>
                   <dd className="mt-1">
                     <ul className="bg-green-50 rounded-md p-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {prediction.suggested_crops.map((crop, index) => (
@@ -692,7 +693,7 @@ const YieldPredictionPage = () => {
                       ))}
                     </ul>
                     <p className="text-xs text-gray-500 mt-2">
-                      These crops are well-suited for your soil type and current weather conditions
+                      <TranslateText>These crops are well-suited for your soil type and current weather conditions</TranslateText>
                     </p>
                   </dd>
                 </div>

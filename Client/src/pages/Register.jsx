@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import TranslateText from '../components/TranslateText';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -103,12 +104,12 @@ const Register = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Create a new account
+          <TranslateText>Create a new account</TranslateText>
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
+          <TranslateText>Or</TranslateText>{' '}
           <Link to="/login" className="font-medium text-green-600 hover:text-green-500">
-            login to your existing account
+            <TranslateText>login to your existing account</TranslateText>
           </Link>
         </p>
       </div>
@@ -124,7 +125,7 @@ const Register = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Full Name
+                <TranslateText>Full Name</TranslateText>
               </label>
               <div className="mt-1">
                 <input
@@ -142,7 +143,7 @@ const Register = () => {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
+                <TranslateText>Email address</TranslateText>
               </label>
               <div className="mt-1">
                 <input
@@ -160,7 +161,7 @@ const Register = () => {
 
             <div>
               <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">
-                Contact Number
+                <TranslateText>Contact Number</TranslateText>
               </label>
               <div className="mt-1">
                 <input
@@ -178,7 +179,7 @@ const Register = () => {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
+                <TranslateText>Password</TranslateText>
               </label>
               <div className="mt-1">
                 <input
@@ -196,7 +197,7 @@ const Register = () => {
 
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                Confirm Password
+                <TranslateText>Confirm Password</TranslateText>
               </label>
               <div className="mt-1">
                 <input
@@ -214,7 +215,7 @@ const Register = () => {
 
             <div>
               <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-                I am a
+                <TranslateText>I am a</TranslateText>
               </label>
               <div className="mt-1">
                 <select
@@ -224,18 +225,18 @@ const Register = () => {
                   onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 >
-                  <option value="consumer">Consumer</option>
-                  <option value="farmer">Farmer</option>
+                  <option value="consumer"><TranslateText>Consumer</TranslateText></option>
+                  <option value="farmer"><TranslateText>Farmer</TranslateText></option>
                 </select>
               </div>
             </div>
 
             {role === 'farmer' && (
               <div className="space-y-4 border-t border-gray-200 pt-4">
-                <h3 className="text-lg font-medium leading-6 text-gray-900">Farm Details</h3>
+                <h3 className="text-lg font-medium leading-6 text-gray-900"><TranslateText>Farm Details</TranslateText></h3>
                 <div>
                   <label htmlFor="farmName" className="block text-sm font-medium text-gray-700">
-                    Farm Name
+                    <TranslateText>Farm Name</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -252,7 +253,7 @@ const Register = () => {
 
                 <div>
                   <label htmlFor="farmSize" className="block text-sm font-medium text-gray-700">
-                    Farm Size (in acres)
+                    <TranslateText>Farm Size (in acres)</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -270,7 +271,7 @@ const Register = () => {
 
                 <div>
                   <label htmlFor="mainCrops" className="block text-sm font-medium text-gray-700">
-                    Main Crops (comma separated)
+                    <TranslateText>Main Crops (comma separated)</TranslateText>
                   </label>
                   <div className="mt-1">
                     <input
@@ -289,7 +290,7 @@ const Register = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">
-                      Longitude
+                      <TranslateText>Longitude</TranslateText>
                     </label>
                     <div className="mt-1">
                       <input
@@ -312,7 +313,7 @@ const Register = () => {
                   </div>
                   <div>
                     <label htmlFor="latitude" className="block text-sm font-medium text-gray-700">
-                      Latitude
+                      <TranslateText>Latitude</TranslateText>
                     </label>
                     <div className="mt-1">
                       <input
@@ -345,7 +346,7 @@ const Register = () => {
                   loading ? 'opacity-70 cursor-not-allowed' : ''
                 }`}
               >
-                {loading ? 'Registering...' : 'Register'}
+                {loading ? <TranslateText>Registering...</TranslateText> : <TranslateText>Register</TranslateText>}
               </button>
             </div>
           </form>

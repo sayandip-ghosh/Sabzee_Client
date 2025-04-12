@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { productApi, farmerApi, orderApi } from '../services/api';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import TranslateText from '../components/TranslateText';
 
 // Chart colors
 const COLORS = ['#10B981', '#FBBF24', '#60A5FA', '#EF4444', '#8B5CF6', '#EC4899'];
@@ -270,17 +271,17 @@ const FarmerDashboard = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Access Denied
+            <TranslateText>Access Denied</TranslateText>
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            You need to be logged in as a farmer to access this page.
+            <TranslateText>You need to be logged in as a farmer to access this page.</TranslateText>
           </p>
           <div className="mt-5 flex justify-center">
             <Link
               to="/login"
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Login
+              <TranslateText>Login</TranslateText>
             </Link>
           </div>
         </div>
@@ -292,7 +293,7 @@ const FarmerDashboard = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500"></div>
-        <p className="mt-4 text-gray-600">Loading dashboard...</p>
+        <p className="mt-4 text-gray-600"><TranslateText>Loading dashboard...</TranslateText></p>
       </div>
     );
   }
@@ -310,7 +311,7 @@ const FarmerDashboard = () => {
                   </svg>
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-red-800">Error Loading Dashboard</h3>
+                  <h3 className="text-sm font-medium text-red-800"><TranslateText>Error Loading Dashboard</TranslateText></h3>
                   <div className="mt-2 text-sm text-red-700">
                     <p>{error}</p>
                   </div>
@@ -320,7 +321,7 @@ const FarmerDashboard = () => {
                       onClick={() => window.location.reload()}
                       className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                     >
-                      Retry
+                      <TranslateText>Retry</TranslateText>
                     </button>
                   </div>
                 </div>
@@ -337,9 +338,9 @@ const FarmerDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="md:flex md:items-center md:justify-between mb-8">
           <div className="flex-1 min-w-0">
-            <h1 className="text-3xl font-extrabold text-gray-900">Farmer Dashboard</h1>
+            <h1 className="text-3xl font-extrabold text-gray-900"><TranslateText>Farmer Dashboard</TranslateText></h1>
             <p className="mt-1 text-lg text-gray-500">
-              Welcome back, {user.name}
+              <TranslateText>Welcome back</TranslateText>, {user.name}
             </p>
           </div>
           <div className="mt-4 flex md:mt-0 md:ml-4 space-x-3">
@@ -347,19 +348,19 @@ const FarmerDashboard = () => {
               to="/add-product"
               className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
-              Add New Product
+              <TranslateText>Add New Product</TranslateText>
             </Link>
             <Link
               to="/crop-scan"
               className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Scan Crop Disease
+              <TranslateText>Scan Crop Disease</TranslateText>
             </Link>
             <Link
               to="/yield-prediction"
               className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
             >
-              Predict Yield
+              <TranslateText>Predict Yield</TranslateText>
             </Link>
           </div>
         </div>
@@ -375,7 +376,7 @@ const FarmerDashboard = () => {
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
             >
-              Overview
+              <TranslateText>Overview</TranslateText>
             </button>
             <button
               onClick={() => setActiveTab('products')}
@@ -385,7 +386,7 @@ const FarmerDashboard = () => {
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
             >
-              My Products
+              <TranslateText>My Products</TranslateText>
             </button>
             <button
               onClick={() => setActiveTab('orders')}
@@ -395,7 +396,7 @@ const FarmerDashboard = () => {
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
             >
-              Orders
+              <TranslateText>Orders</TranslateText>
             </button>
           </nav>
         </div>
@@ -415,7 +416,7 @@ const FarmerDashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Total Sales</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate"><TranslateText>Total Sales</TranslateText></dt>
                         <dd className="text-lg font-medium text-gray-900">₹{analytics?.totalSales || '0.00'}</dd>
                       </dl>
                     </div>
@@ -434,7 +435,7 @@ const FarmerDashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Total Orders</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate"><TranslateText>Total Orders</TranslateText></dt>
                         <dd className="text-lg font-medium text-gray-900">{analytics?.totalOrders || 0}</dd>
                       </dl>
                     </div>
@@ -453,7 +454,7 @@ const FarmerDashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Pending Orders</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate"><TranslateText>Pending Orders</TranslateText></dt>
                         <dd className="text-lg font-medium text-gray-900">{analytics?.pendingOrders || 0}</dd>
                       </dl>
                     </div>
@@ -472,7 +473,7 @@ const FarmerDashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Completed Orders</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate"><TranslateText>Completed Orders</TranslateText></dt>
                         <dd className="text-lg font-medium text-gray-900">{analytics?.completedOrders || 0}</dd>
                       </dl>
                     </div>
@@ -483,7 +484,7 @@ const FarmerDashboard = () => {
 
             {/* Sales Trends Chart */}
             <div className="mt-8 bg-white shadow rounded-lg p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">Monthly Sales Trends</h2>
+              <h2 className="text-lg font-medium text-gray-900 mb-4"><TranslateText>Monthly Sales Trends</TranslateText></h2>
               <div className="flex justify-end mb-4">
                 <div className="inline-flex rounded-md shadow-sm" role="group">
                   <button
@@ -495,7 +496,7 @@ const FarmerDashboard = () => {
                         : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'
                     }`}
                   >
-                    This Month
+                    <TranslateText>This Month</TranslateText>
                   </button>
                   <button
                     type="button"
@@ -506,7 +507,7 @@ const FarmerDashboard = () => {
                         : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'
                     }`}
                   >
-                    This Quarter
+                    <TranslateText>This Quarter</TranslateText>
                   </button>
                   <button
                     type="button"
@@ -517,7 +518,7 @@ const FarmerDashboard = () => {
                         : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'
                     }`}
                   >
-                    This Year
+                    <TranslateText>This Year</TranslateText>
                   </button>
                 </div>
               </div>
@@ -542,7 +543,7 @@ const FarmerDashboard = () => {
             <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
               {/* Order Status Distribution */}
               <div className="bg-white shadow rounded-lg p-6">
-                <h2 className="text-lg font-medium text-gray-900 mb-4">Order Status Distribution</h2>
+                <h2 className="text-lg font-medium text-gray-900 mb-4"><TranslateText>Order Status Distribution</TranslateText></h2>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -578,7 +579,7 @@ const FarmerDashboard = () => {
 
               {/* Top Selling Products */}
               <div className="bg-white shadow rounded-lg p-6">
-                <h2 className="text-lg font-medium text-gray-900 mb-4">Top Selling Products</h2>
+                <h2 className="text-lg font-medium text-gray-900 mb-4"><TranslateText>Top Selling Products</TranslateText></h2>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -599,7 +600,7 @@ const FarmerDashboard = () => {
 
             {/* Recent Orders */}
             <div className="mt-8">
-              <h2 className="text-lg font-medium text-gray-900">Recent Orders</h2>
+              <h2 className="text-lg font-medium text-gray-900"><TranslateText>Recent Orders</TranslateText></h2>
               <div className="mt-4 bg-white shadow overflow-hidden sm:rounded-md">
                 {farmerOrders && farmerOrders.length > 0 ? (
                   <ul className="divide-y divide-gray-200">
@@ -607,21 +608,17 @@ const FarmerDashboard = () => {
                       <li key={order._id}>
                         <div className="px-4 py-4 sm:px-6">
                           <div className="flex items-center justify-between">
-                            <p className="text-sm font-medium text-green-600 truncate">Order #{order._id.substring(0, 8)}</p>
+                            <p className="text-sm font-medium text-green-600 truncate"><TranslateText>Order</TranslateText> #{order._id.substring(0, 8)}</p>
                             <div className="ml-2 flex-shrink-0 flex">
-                              <p className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                order.status === 'completed' ? 'bg-green-100 text-green-800' :
-                                order.status === 'processing' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-gray-100 text-gray-800'
-                              }`}>
-                                {order.status}
+                              <p className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(order.status)}`}>
+                                <TranslateText>{order.status}</TranslateText>
                               </p>
                             </div>
                           </div>
                           <div className="mt-2 sm:flex sm:justify-between">
                             <div className="sm:flex">
                               <p className="flex items-center text-sm text-gray-500">
-                                {order.farmerItems.length} item(s) from your farm
+                                <TranslateText>{order.farmerItems.length} item(s) from your farm</TranslateText>
                               </p>
                             </div>
                             <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
@@ -635,7 +632,7 @@ const FarmerDashboard = () => {
                     ))}
                   </ul>
                 ) : (
-                  <div className="p-4 text-center text-gray-500">No recent orders found.</div>
+                  <div className="p-4 text-center text-gray-500"><TranslateText>No recent orders found.</TranslateText></div>
                 )}
               </div>
             </div>
@@ -646,23 +643,23 @@ const FarmerDashboard = () => {
         {activeTab === 'products' && (
           <div>
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-medium text-gray-900">My Products</h2>
+              <h2 className="text-lg font-medium text-gray-900"><TranslateText>My Products</TranslateText></h2>
               <Link
                 to="/add-product"
                 className="inline-flex items-center px-3 py-1 border border-transparent text-sm rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
-                Add New
+                <TranslateText>Add New</TranslateText>
               </Link>
             </div>
             
             {products.length === 0 ? (
               <div className="bg-white shadow overflow-hidden sm:rounded-md p-6 text-center">
-                <p className="text-gray-500">You haven't added any products yet.</p>
+                <p className="text-gray-500"><TranslateText>You haven't added any products yet.</TranslateText></p>
                 <Link
                   to="/add-product"
                   className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  Add Your First Product
+                  <TranslateText>Add Your First Product</TranslateText>
                 </Link>
               </div>
             ) : (
@@ -682,13 +679,15 @@ const FarmerDashboard = () => {
                                 />
                               ) : (
                                 <div className="flex items-center justify-center h-full w-full">
-                                  <span className="text-xs text-gray-400">No image</span>
+                                  <span className="text-xs text-gray-400"><TranslateText>No image</TranslateText></span>
                                 </div>
                               )}
                             </div>
                             <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                              <div className="text-sm text-gray-500">₹{product.price} per {product.unit}</div>
+                              <div className="text-sm font-medium text-gray-900">
+                              <TranslateText>{product.name}</TranslateText>
+                              </div>
+                              <div className="text-sm text-gray-500">₹{product.price} <TranslateText>per</TranslateText> {product.unit}</div>
                             </div>
                           </div>
                           <div className="flex">
@@ -697,20 +696,20 @@ const FarmerDashboard = () => {
                               product.status === 'sold_out' ? 'bg-red-100 text-red-800' :
                               'bg-yellow-100 text-yellow-800'
                             }`}>
-                              {product.status}
+                              <TranslateText>{product.status}</TranslateText>
                             </span>
                             <div className="ml-4 flex-shrink-0 flex">
                               <Link
                                 to={`/products/${product._id}/edit`}
                                 className="mr-2 font-medium text-green-600 hover:text-green-500"
                               >
-                                Edit
+                                <TranslateText>Edit</TranslateText>
                               </Link>
                               <button
                                 onClick={() => handleDeleteProduct(product._id)}
                                 className="font-medium text-red-600 hover:text-red-500"
                               >
-                                Delete
+                                <TranslateText>Delete</TranslateText>
                               </button>
                             </div>
                           </div>
@@ -718,12 +717,12 @@ const FarmerDashboard = () => {
                         <div className="mt-2 sm:flex sm:justify-between">
                           <div className="sm:flex">
                             <p className="flex items-center text-sm text-gray-500">
-                              {product.category} • {product.organic ? 'Organic' : 'Non-Organic'}
+                              {product.category} • <TranslateText>{product.organic ? 'Organic' : 'Non-Organic'}</TranslateText>
                             </p>
                           </div>
                           <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
                             <p>
-                              Quantity: {product.quantity} {product.unit}
+                              <TranslateText>Quantity:</TranslateText> {product.quantity} {product.unit}
                             </p>
                           </div>
                         </div>
@@ -739,10 +738,10 @@ const FarmerDashboard = () => {
         {/* Orders Tab */}
         {activeTab === 'orders' && (
           <div>
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Order History</h2>
+            <h2 className="text-lg font-medium text-gray-900 mb-4"><TranslateText>Order History</TranslateText></h2>
             
             <div className="mb-6 bg-white p-4 rounded-lg shadow">
-              <div className="text-sm text-gray-500 mb-2">Filter by status:</div>
+              <div className="text-sm text-gray-500 mb-2"><TranslateText>Filter by status:</TranslateText></div>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setOrdersFilter('all')}
@@ -752,7 +751,7 @@ const FarmerDashboard = () => {
                       : 'bg-gray-100 hover:bg-gray-200'
                   }`}
                 >
-                  All Orders
+                  <TranslateText>All Orders</TranslateText>
                 </button>
                 <button
                   onClick={() => setOrdersFilter('pending')}
@@ -762,7 +761,7 @@ const FarmerDashboard = () => {
                       : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
                   }`}
                 >
-                  Pending
+                  <TranslateText>Pending</TranslateText>
                 </button>
                 <button
                   onClick={() => setOrdersFilter('processing')}
@@ -772,7 +771,7 @@ const FarmerDashboard = () => {
                       : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
                   }`}
                 >
-                  Processing
+                  <TranslateText>Processing</TranslateText>
                 </button>
                 <button
                   onClick={() => setOrdersFilter('completed')}
@@ -782,7 +781,7 @@ const FarmerDashboard = () => {
                       : 'bg-green-100 text-green-800 hover:bg-green-200'
                   }`}
                 >
-                  Completed
+                  <TranslateText>Completed</TranslateText>
                 </button>
                 <button
                   onClick={() => setOrdersFilter('cancelled')}
@@ -792,7 +791,7 @@ const FarmerDashboard = () => {
                       : 'bg-red-100 text-red-800 hover:bg-red-200'
                   }`}
                 >
-                  Cancelled
+                  <TranslateText>Cancelled</TranslateText>
                 </button>
               </div>
             </div>
@@ -803,7 +802,6 @@ const FarmerDashboard = () => {
                   {farmerOrders
                     .filter(order => ordersFilter === 'all' || order.status === ordersFilter)
                     .map((order) => {
-                      // Calculate subtotal for this farmer's items
                       const subtotal = order.farmerItems.reduce((sum, item) => 
                         sum + (item.price * item.quantity), 0
                       );
@@ -812,15 +810,10 @@ const FarmerDashboard = () => {
                         <li key={order._id}>
                           <div className="px-4 py-4 sm:px-6">
                             <div className="flex items-center justify-between">
-                              <p className="text-sm font-medium text-green-600 truncate">Order #{order._id.substring(0, 8)}</p>
+                              <p className="text-sm font-medium text-green-600 truncate"><TranslateText>Order</TranslateText> #{order._id.substring(0, 8)}</p>
                               <div className="ml-2 flex-shrink-0 flex">
-                                <p className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  order.status === 'completed' ? 'bg-green-100 text-green-800' :
-                                  order.status === 'processing' ? 'bg-yellow-100 text-yellow-800' :
-                                  order.status === 'cancelled' ? 'bg-red-100 text-red-800' :
-                                  'bg-blue-100 text-blue-800'
-                                }`}>
-                                  {order.status || 'Pending'}
+                                <p className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(order.status)}`}>
+                                  <TranslateText>{order.status || 'Pending'}</TranslateText>
                                 </p>
                               </div>
                             </div>
@@ -828,18 +821,18 @@ const FarmerDashboard = () => {
                             <div className="mt-2 sm:flex sm:justify-between">
                               <div className="sm:flex">
                                 <p className="flex items-center text-sm text-gray-500">
-                                  Customer: {order.consumer?.name || 'Unknown'}
+                                  <TranslateText>Customer:</TranslateText> {order.consumer?.name || <TranslateText>Unknown</TranslateText>}
                                 </p>
                               </div>
                               <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
                                 <p>
-                                  Date: {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString()}
+                                  <TranslateText>Date:</TranslateText> {new Date(order.createdAt).toLocaleDateString()} <TranslateText>at</TranslateText> {new Date(order.createdAt).toLocaleTimeString()}
                                 </p>
                               </div>
                             </div>
                             
                             <div className="mt-4 border-t border-gray-200 pt-4">
-                              <h4 className="text-sm font-medium text-gray-900">Your Products in This Order:</h4>
+                              <h4 className="text-sm font-medium text-gray-900"><TranslateText>Your Products in This Order:</TranslateText></h4>
                               <ul className="mt-2 divide-y divide-gray-200">
                                 {order.farmerItems.map((item, index) => {
                                   const product = products.find(p => p._id === (item.product._id || item.product));
@@ -855,13 +848,13 @@ const FarmerDashboard = () => {
                                             />
                                           ) : (
                                             <div className="h-full w-full bg-gray-100 flex items-center justify-center">
-                                              <span className="text-xs text-gray-400">No image</span>
+                                              <span className="text-xs text-gray-400"><TranslateText>No image</TranslateText></span>
                                             </div>
                                           )}
                                         </div>
                                         <div className="ml-4">
-                                          <p className="font-medium text-gray-900">{product ? product.name : item.name || 'Unknown Product'}</p>
-                                          <p className="text-gray-500">{item.quantity} x ₹{item.price} per {product ? product.unit : 'unit'}</p>
+                                          <p className="font-medium text-gray-900">{product ? product.name : item.name || <TranslateText>Unknown Product</TranslateText>}</p>
+                                          <p className="text-gray-500">{item.quantity} x ₹{item.price} <TranslateText>per</TranslateText> {product ? product.unit : <TranslateText>unit</TranslateText>}</p>
                                         </div>
                                       </div>
                                       <p className="font-medium text-gray-900">₹{(item.price * item.quantity).toFixed(2)}</p>
@@ -870,7 +863,7 @@ const FarmerDashboard = () => {
                                 })}
                               </ul>
                               <div className="mt-4 flex justify-between border-t border-gray-200 pt-4 text-gray-900">
-                                <p className="text-sm font-medium">Subtotal for your products:</p>
+                                <p className="text-sm font-medium"><TranslateText>Subtotal for your products:</TranslateText></p>
                                 <p className="text-sm font-medium">₹{subtotal.toFixed(2)}</p>
                               </div>
                             </div>
@@ -878,15 +871,15 @@ const FarmerDashboard = () => {
                             {order.shippingDetails && (
                               <div className="mt-4 border-t border-gray-200 pt-4 grid grid-cols-1 gap-y-2 sm:grid-cols-2 sm:gap-x-4">
                                 <div>
-                                  <dt className="text-sm font-medium text-gray-500">Delivery Address</dt>
+                                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Delivery Address</TranslateText></dt>
                                   <dd className="mt-1 text-sm text-gray-900">
                                     {order.shippingDetails.address}, {order.shippingDetails.city}, {order.shippingDetails.state} {order.shippingDetails.postalCode}
                                   </dd>
                                 </div>
                                 <div>
-                                  <dt className="text-sm font-medium text-gray-500">Payment Method</dt>
+                                  <dt className="text-sm font-medium text-gray-500"><TranslateText>Payment Method</TranslateText></dt>
                                   <dd className="mt-1 text-sm text-gray-900">
-                                    {order.paymentMethod === 'cash-on-delivery' ? 'Cash on Delivery' : order.paymentMethod}
+                                    <TranslateText>{order.paymentMethod === 'cash-on-delivery' ? 'Cash on Delivery' : order.paymentMethod}</TranslateText>
                                   </dd>
                                 </div>
                               </div>
@@ -899,7 +892,7 @@ const FarmerDashboard = () => {
               </div>
             ) : (
               <div className="bg-white shadow overflow-hidden sm:rounded-md p-6 text-center">
-                <p className="text-gray-500">No orders found for your products.</p>
+                <p className="text-gray-500"><TranslateText>No orders found for your products.</TranslateText></p>
               </div>
             )}
           </div>

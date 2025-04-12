@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { predictionApi } from '../services/api';
+import TranslateText from '../components/TranslateText';
 
 const CropScanDetailPage = () => {
   const { predictionId } = useParams();
@@ -36,17 +37,17 @@ const CropScanDetailPage = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Access Denied
+            <TranslateText>Access Denied</TranslateText>
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Only farmers can access the crop disease detection tool.
+            <TranslateText>Only farmers can access the crop disease detection tool.</TranslateText>
           </p>
           <div className="mt-5 flex justify-center">
             <Link
               to="/dashboard"
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Back to Dashboard
+              <TranslateText>Back to Dashboard</TranslateText>
             </Link>
           </div>
         </div>
@@ -69,8 +70,8 @@ const CropScanDetailPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500"></div>
-        <p className="mt-4 text-gray-600">Loading prediction details...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+        <p className="mt-4 text-gray-600"><TranslateText>Loading scan details...</TranslateText></p>
       </div>
     );
   }
@@ -120,17 +121,17 @@ const CropScanDetailPage = () => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
-            Back to Scan History
+            <TranslateText>Back to Scan History</TranslateText>
           </Link>
         </div>
         
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
           <div className="px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
-              Crop Disease Detection Result
+              <TranslateText>Scan Results</TranslateText>
             </h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">
-              Detailed information about your crop scan
+              <TranslateText>Details and recommendations for your crop scan</TranslateText>
             </p>
           </div>
           
@@ -149,12 +150,16 @@ const CropScanDetailPage = () => {
               <div className="md:col-span-1">
                 <dl className="divide-y divide-gray-200">
                   <div className="py-4 sm:py-5 grid grid-cols-3 gap-4">
-                    <dt className="text-sm font-medium text-gray-500">Disease</dt>
+                    <dt className="text-sm font-medium text-gray-500">
+                      <TranslateText>Disease Detected</TranslateText>
+                    </dt>
                     <dd className="text-sm font-bold text-gray-900 col-span-2">{prediction.prediction}</dd>
                   </div>
                   
                   <div className="py-4 sm:py-5 grid grid-cols-3 gap-4">
-                    <dt className="text-sm font-medium text-gray-500">Confidence</dt>
+                    <dt className="text-sm font-medium text-gray-500">
+                      <TranslateText>Confidence Level</TranslateText>
+                    </dt>
                     <dd className="text-sm text-gray-900 col-span-2">
                       <div className="flex items-center">
                         <div className="w-full bg-gray-200 rounded-full h-2.5 mr-2">
@@ -169,7 +174,9 @@ const CropScanDetailPage = () => {
                   </div>
                   
                   <div className="py-4 sm:py-5 grid grid-cols-3 gap-4">
-                    <dt className="text-sm font-medium text-gray-500">Scan Date</dt>
+                    <dt className="text-sm font-medium text-gray-500">
+                      <TranslateText>Scan Date</TranslateText>
+                    </dt>
                     <dd className="text-sm text-gray-900 col-span-2">{formatDate(prediction.createdAt)}</dd>
                   </div>
                   

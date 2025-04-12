@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { yieldPredictionApi } from '../services/api';
+import TranslateText from '../components/TranslateText';
 
 const YieldPredictionDetailPage = () => {
   const { predictionId } = useParams();
@@ -37,17 +38,17 @@ const YieldPredictionDetailPage = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Access Denied
+            <TranslateText>Access Denied</TranslateText>
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Only farmers can access yield predictions.
+            <TranslateText>Only farmers can access yield predictions.</TranslateText>
           </p>
           <div className="mt-5 flex justify-center">
             <Link
               to="/dashboard"
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Back to Dashboard
+              <TranslateText>Back to Dashboard</TranslateText>
             </Link>
           </div>
         </div>
@@ -85,35 +86,35 @@ const YieldPredictionDetailPage = () => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
-            Back to History
+            <TranslateText>Back to History</TranslateText>
           </button>
         </div>
         
         {error && (
           <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4">
-            <p className="text-red-700">{error}</p>
+            <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
           </div>
         )}
         
         {loading ? (
           <div className="flex flex-col items-center justify-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
-            <p className="mt-4 text-gray-600">Loading prediction details...</p>
+            <p className="mt-4 text-gray-600"><TranslateText>Loading prediction details...</TranslateText></p>
           </div>
         ) : prediction ? (
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Yield Prediction Details</h1>
+                <h1 className="text-2xl font-bold text-gray-900"><TranslateText>Yield Prediction Details</TranslateText></h1>
                 <p className="mt-1 text-sm text-gray-500">
-                  Created on {formatDate(prediction.createdAt)}
+                  <TranslateText>Created on</TranslateText> {formatDate(prediction.createdAt)}
                 </p>
               </div>
               <button
                 onClick={handleNewPrediction}
                 className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
-                New Prediction
+                <TranslateText>New Prediction</TranslateText>
               </button>
             </div>
             
@@ -121,23 +122,23 @@ const YieldPredictionDetailPage = () => {
               <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 {/* Crop Information */}
                 <div className="sm:col-span-3">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Crop Information</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3"><TranslateText>Crop Information</TranslateText></h3>
                   <div className="bg-gray-50 rounded-lg p-4">
                     <dl className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Crop</dt>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Crop</TranslateText></dt>
                         <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.crop}</dd>
                       </div>
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Season</dt>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Season</TranslateText></dt>
                         <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.season}</dd>
                       </div>
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Land Area</dt>
-                        <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.area_of_land} acres</dd>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Land Area</TranslateText></dt>
+                        <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.area_of_land} <TranslateText>acres</TranslateText></dd>
                       </div>
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Soil Type</dt>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Soil Type</TranslateText></dt>
                         <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.soil_type}</dd>
                       </div>
                     </dl>
@@ -146,15 +147,15 @@ const YieldPredictionDetailPage = () => {
                 
                 {/* Location Information */}
                 <div className="sm:col-span-3">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Location Information</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3"><TranslateText>Location Information</TranslateText></h3>
                   <div className="bg-gray-50 rounded-lg p-4">
                     <dl className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Latitude</dt>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Latitude</TranslateText></dt>
                         <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.location.lat}</dd>
                       </div>
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Longitude</dt>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Longitude</TranslateText></dt>
                         <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.location.lng}</dd>
                       </div>
                     </dl>
@@ -163,20 +164,20 @@ const YieldPredictionDetailPage = () => {
                 
                 {/* Weather Conditions */}
                 <div className="sm:col-span-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Weather Conditions</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3"><TranslateText>Weather Conditions</TranslateText></h3>
                   <div className="bg-gray-50 rounded-lg p-4">
                     <dl className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-3">
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Temperature</dt>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Temperature</TranslateText></dt>
                         <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.weather.temperature}°C</dd>
                       </div>
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Humidity</dt>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Humidity</TranslateText></dt>
                         <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.weather.humidity}%</dd>
                       </div>
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">Rainfall</dt>
-                        <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.weather.rainfall}mm</dd>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Rainfall</TranslateText></dt>
+                        <dd className="mt-1 text-lg font-semibold text-gray-900">{prediction.weather.rainfall}<TranslateText>mm</TranslateText></dd>
                       </div>
                     </dl>
                   </div>
@@ -184,21 +185,21 @@ const YieldPredictionDetailPage = () => {
                 
                 {/* Prediction Results */}
                 <div className="sm:col-span-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Prediction Results</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-3"><TranslateText>Prediction Results</TranslateText></h3>
                   <div className="bg-green-50 border border-green-100 rounded-lg p-6">
                     <div className="mb-6">
-                      <h4 className="text-base font-medium text-gray-700 mb-2">Estimated Yield</h4>
+                      <h4 className="text-base font-medium text-gray-700 mb-2"><TranslateText>Estimated Yield</TranslateText></h4>
                       <div className="flex items-end">
                         <span className="text-4xl font-bold text-green-600">{prediction.predicted_yield_kg}</span>
-                        <span className="ml-2 text-xl text-gray-500">kg</span>
+                        <span className="ml-2 text-xl text-gray-500"><TranslateText>kg</TranslateText></span>
                       </div>
                       <div className="mt-1 text-sm text-gray-500">
-                        Prediction confidence: {Math.round(prediction.confidence * 100)}%
+                        <TranslateText>Prediction confidence:</TranslateText> {Math.round(prediction.confidence * 100)}%
                       </div>
                     </div>
                     
                     <div>
-                      <h4 className="text-base font-medium text-gray-700 mb-2">Recommended Crops</h4>
+                      <h4 className="text-base font-medium text-gray-700 mb-2"><TranslateText>Recommended Crops</TranslateText></h4>
                       <div className="flex flex-wrap gap-2 mb-2">
                         {prediction.suggested_crops.map((crop, index) => (
                           <span
@@ -210,7 +211,7 @@ const YieldPredictionDetailPage = () => {
                         ))}
                       </div>
                       <p className="text-sm text-gray-500 mt-2">
-                        These crops are recommended based on your soil type, location, and current season for optimal yield.
+                        <TranslateText>These crops are recommended based on your soil type, location, and current season for optimal yield.</TranslateText>
                       </p>
                     </div>
                   </div>
@@ -235,16 +236,16 @@ const YieldPredictionDetailPage = () => {
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <h3 className="mt-2 text-lg font-medium text-gray-900">Prediction not found</h3>
+              <h3 className="mt-2 text-lg font-medium text-gray-900"><TranslateText>Prediction not found</TranslateText></h3>
               <p className="mt-1 text-sm text-gray-500">
-                The yield prediction you are looking for may have been deleted or does not exist.
+                <TranslateText>The yield prediction you are looking for may have been deleted or does not exist.</TranslateText>
               </p>
               <div className="mt-6">
                 <Link
                   to="/yield-prediction-history"
                   className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  Go to History
+                  <TranslateText>Go to History</TranslateText>
                 </Link>
               </div>
             </div>

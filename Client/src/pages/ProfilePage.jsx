@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { userApi, farmerApi } from '../services/api';
+import TranslateText from '../components/TranslateText';
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -189,7 +190,7 @@ const ProfilePage = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500"></div>
-        <p className="mt-4 text-gray-600">Loading profile...</p>
+        <p className="mt-4 text-gray-600"><TranslateText>Loading profile...</TranslateText></p>
       </div>
     );
   }
@@ -199,17 +200,17 @@ const ProfilePage = () => {
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Access Denied
+            <TranslateText>Access Denied</TranslateText>
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            You need to be logged in to access this page.
+            <TranslateText>You need to be logged in to access this page.</TranslateText>
           </p>
           <div className="mt-5 flex justify-center">
             <Link
               to="/login"
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Login
+              <TranslateText>Login</TranslateText>
             </Link>
           </div>
         </div>
@@ -221,15 +222,17 @@ const ProfilePage = () => {
     <div className="bg-gray-50 min-h-screen py-8">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900">My Profile</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900">
+            <TranslateText>My Profile</TranslateText>
+          </h1>
           <p className="mt-1 text-lg text-gray-500">
-            Manage your account information
+            <TranslateText>Manage your account information</TranslateText>
           </p>
         </div>
 
         {error && (
           <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4">
-            <p className="text-red-700">{error}</p>
+            <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
           </div>
         )}
 
@@ -239,13 +242,13 @@ const ProfilePage = () => {
             <div>
               <div className="flex justify-between items-center px-4 py-5 sm:px-6 border-b border-gray-200">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  Profile Information
+                  <TranslateText>Profile Information</TranslateText>
                 </h3>
                 <button
                   onClick={() => setIsEditing(true)}
                   className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  Edit Profile
+                  <TranslateText>Edit Profile</TranslateText>
                 </button>
               </div>
               <div className="px-4 py-5 sm:p-6">
@@ -271,38 +274,38 @@ const ProfilePage = () => {
 
                 <dl className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
                   <div className="sm:col-span-1">
-                    <dt className="text-sm font-medium text-gray-500">Email</dt>
+                    <dt className="text-sm font-medium text-gray-500"><TranslateText>Email</TranslateText></dt>
                     <dd className="mt-1 text-sm text-gray-900">{profile.email}</dd>
                   </div>
                   <div className="sm:col-span-1">
-                    <dt className="text-sm font-medium text-gray-500">Contact Number</dt>
+                    <dt className="text-sm font-medium text-gray-500"><TranslateText>Contact Number</TranslateText></dt>
                     <dd className="mt-1 text-sm text-gray-900">{profile.contactNumber}</dd>
                   </div>
 
                   {user.role === 'farmer' && profile.farmDetails && (
                     <>
                       <div className="sm:col-span-2">
-                        <dt className="text-sm font-medium text-gray-500">Farm Details</dt>
+                        <dt className="text-sm font-medium text-gray-500"><TranslateText>Farm Details</TranslateText></dt>
                         <dd className="mt-1 text-sm text-gray-900">
                           <div className="border border-gray-200 rounded-md p-4">
                             <div className="mb-3">
-                              <span className="font-medium">Farm Name:</span> {profile.farmDetails.farmName || 'Not specified'}
+                              <span className="font-medium"><TranslateText>Farm Name:</TranslateText></span> {profile.farmDetails.farmName || <TranslateText>Not specified</TranslateText>}
                             </div>
                             <div className="mb-3">
-                              <span className="font-medium">Farm Size:</span> {profile.farmDetails.farmSize ? `${profile.farmDetails.farmSize} acres` : 'Not specified'}
+                              <span className="font-medium"><TranslateText>Farm Size:</TranslateText></span> {profile.farmDetails.farmSize ? `${profile.farmDetails.farmSize} acres` : <TranslateText>Not specified</TranslateText>}
                             </div>
                             <div className="mb-3">
-                              <span className="font-medium">Location:</span>{' '}
+                              <span className="font-medium"><TranslateText>Location:</TranslateText></span>{' '}
                               {profile.farmDetails.location?.coordinates ? (
                                 <span>
                                   {profile.farmDetails.location.coordinates[0].toFixed(4)}°E, {profile.farmDetails.location.coordinates[1].toFixed(4)}°N
                                 </span>
                               ) : (
-                                'Not specified'
+                                <TranslateText>Not specified</TranslateText>
                               )}
                             </div>
                             <div>
-                              <span className="font-medium">Main Crops:</span>
+                              <span className="font-medium"><TranslateText>Main Crops:</TranslateText></span>
                               {profile.farmDetails.mainCrops && profile.farmDetails.mainCrops.length > 0 ? (
                                 <div className="mt-1 flex flex-wrap gap-2">
                                   {profile.farmDetails.mainCrops.map((crop, index) => (
@@ -310,12 +313,12 @@ const ProfilePage = () => {
                                       key={index}
                                       className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
                                     >
-                                      {crop}
+                                      <TranslateText>{crop}</TranslateText>
                                     </span>
                                   ))}
                                 </div>
                               ) : (
-                                <span className="ml-1 text-gray-500">Not specified</span>
+                                <span className="ml-1 text-gray-500"><TranslateText>Not specified</TranslateText></span>
                               )}
                             </div>
                           </div>
@@ -331,14 +334,14 @@ const ProfilePage = () => {
             <form onSubmit={handleSubmit}>
               <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  Edit Profile
+                  <TranslateText>Edit Profile</TranslateText>
                 </h3>
               </div>
               <div className="px-4 py-5 sm:p-6">
                 {user.role === 'farmer' && (
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Profile Image
+                      <TranslateText>Profile Image</TranslateText>
                     </label>
                     <div className="flex items-center">
                       <div className="h-24 w-24 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
@@ -368,11 +371,11 @@ const ProfilePage = () => {
                             onClick={() => fileInputRef.current.click()}
                             className="bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                           >
-                            Change
+                            <TranslateText>Change</TranslateText>
                           </button>
                         </div>
                         <p className="mt-1 text-xs text-gray-500">
-                          JPG, PNG, GIF up to 2MB
+                          <TranslateText>JPG, PNG, GIF up to 2MB</TranslateText>
                         </p>
                       </div>
                     </div>
@@ -382,7 +385,7 @@ const ProfilePage = () => {
                 <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                   <div className="sm:col-span-3">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                      Full Name
+                      <TranslateText>Full Name</TranslateText>
                     </label>
                     <div className="mt-1">
                       <input
@@ -399,7 +402,7 @@ const ProfilePage = () => {
 
                   <div className="sm:col-span-3">
                     <label htmlFor="contactNumber" className="block text-sm font-medium text-gray-700">
-                      Contact Number
+                      <TranslateText>Contact Number</TranslateText>
                     </label>
                     <div className="mt-1">
                       <input
@@ -417,12 +420,14 @@ const ProfilePage = () => {
                   {user.role === 'farmer' && (
                     <>
                       <div className="sm:col-span-6">
-                        <h3 className="text-lg font-medium text-gray-900 mb-3">Farm Details</h3>
+                        <h3 className="text-lg font-medium text-gray-900 mb-3">
+                          <TranslateText>Farm Details</TranslateText>
+                        </h3>
                       </div>
 
                       <div className="sm:col-span-3">
                         <label htmlFor="farmDetails.farmName" className="block text-sm font-medium text-gray-700">
-                          Farm Name
+                          <TranslateText>Farm Name</TranslateText>
                         </label>
                         <div className="mt-1">
                           <input
@@ -439,7 +444,7 @@ const ProfilePage = () => {
 
                       <div className="sm:col-span-3">
                         <label htmlFor="farmDetails.farmSize" className="block text-sm font-medium text-gray-700">
-                          Farm Size (acres)
+                          <TranslateText>Farm Size (acres)</TranslateText>
                         </label>
                         <div className="mt-1">
                           <input
@@ -455,12 +460,12 @@ const ProfilePage = () => {
 
                       <div className="sm:col-span-6">
                         <label className="block text-sm font-medium text-gray-700">
-                          Farm Location
+                          <TranslateText>Farm Location</TranslateText>
                         </label>
                         <div className="mt-1 grid grid-cols-2 gap-4">
                           <div>
                             <label htmlFor="longitude" className="block text-sm font-medium text-gray-700">
-                              Longitude (°E)
+                              <TranslateText>Longitude (°E)</TranslateText>
                             </label>
                             <input
                               type="number"
@@ -486,7 +491,7 @@ const ProfilePage = () => {
                           </div>
                           <div>
                             <label htmlFor="latitude" className="block text-sm font-medium text-gray-700">
-                              Latitude (°N)
+                              <TranslateText>Latitude (°N)</TranslateText>
                             </label>
                             <input
                               type="number"
@@ -515,7 +520,7 @@ const ProfilePage = () => {
 
                       <div className="sm:col-span-6">
                         <label htmlFor="mainCrops" className="block text-sm font-medium text-gray-700">
-                          Main Crops
+                          <TranslateText>Main Crops</TranslateText>
                         </label>
                         <div className="mt-1">
                           <div className="flex">
@@ -531,7 +536,7 @@ const ProfilePage = () => {
                               onClick={handleAddCrop}
                               className="ml-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                             >
-                              Add
+                              <TranslateText>Add</TranslateText>
                             </button>
                           </div>
                           <div className="mt-2 flex flex-wrap gap-2">
@@ -540,13 +545,13 @@ const ProfilePage = () => {
                                 key={index}
                                 className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
                               >
-                                {crop}
+                                <TranslateText>{crop}</TranslateText>
                                 <button
                                   type="button"
                                   onClick={() => handleRemoveCrop(crop)}
                                   className="ml-1.5 inline-flex text-green-400 hover:text-green-600 focus:outline-none"
                                 >
-                                  <span className="sr-only">Remove</span>
+                                  <span className="sr-only"><TranslateText>Remove</TranslateText></span>
                                   &times;
                                 </button>
                               </span>
@@ -564,14 +569,14 @@ const ProfilePage = () => {
                   onClick={() => setIsEditing(false)}
                   className="mr-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  Cancel
+                  <TranslateText>Cancel</TranslateText>
                 </button>
                 <button
                   type="submit"
                   disabled={isLoading}
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
-                  {isLoading ? 'Saving...' : 'Save'}
+                  {isLoading ? <TranslateText>Saving...</TranslateText> : <TranslateText>Save</TranslateText>}
                 </button>
               </div>
             </form>

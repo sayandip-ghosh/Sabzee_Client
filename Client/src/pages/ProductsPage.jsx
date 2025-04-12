@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import axios from 'axios';
+import TranslateText from '../components/TranslateText';
 
 const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Categories</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
+        <TranslateText>Categories</TranslateText>
+      </h3>
       <div className="space-y-2">
         <div className="flex items-center">
           <input
@@ -18,7 +21,7 @@ const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
             className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
           />
           <label htmlFor="all" className="ml-3 text-sm text-gray-600">
-            All Categories
+            <TranslateText>All Categories</TranslateText>
           </label>
         </div>
         {categories.map((category) => (
@@ -32,7 +35,7 @@ const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
               className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
             />
             <label htmlFor={category} className="ml-3 text-sm text-gray-600 capitalize">
-              {category}
+              <TranslateText>{category}</TranslateText>
             </label>
           </div>
         ))}
@@ -44,11 +47,13 @@ const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => {
 const PriceFilter = ({ price, onPriceChange }) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow mt-4">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Price Range</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
+        <TranslateText>Price Range</TranslateText>
+      </h3>
       <div className="space-y-4">
         <div>
           <label htmlFor="min-price" className="block text-sm font-medium text-gray-700">
-            Min Price (₹)
+            <TranslateText>Min Price (₹)</TranslateText>
           </label>
           <input
             type="number"
@@ -61,7 +66,7 @@ const PriceFilter = ({ price, onPriceChange }) => {
         </div>
         <div>
           <label htmlFor="max-price" className="block text-sm font-medium text-gray-700">
-            Max Price (₹)
+            <TranslateText>Max Price (₹)</TranslateText>
           </label>
           <input
             type="number"
@@ -80,7 +85,9 @@ const PriceFilter = ({ price, onPriceChange }) => {
 const SortFilter = ({ sort, onSortChange }) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow mt-4">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Sort By</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
+        <TranslateText>Sort By</TranslateText>
+      </h3>
       <div className="space-y-2">
         <div className="flex items-center">
           <input
@@ -92,7 +99,7 @@ const SortFilter = ({ sort, onSortChange }) => {
             className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
           />
           <label htmlFor="price-asc" className="ml-3 text-sm text-gray-600">
-            Price: Low to High
+            <TranslateText>Price: Low to High</TranslateText>
           </label>
         </div>
         <div className="flex items-center">
@@ -105,7 +112,7 @@ const SortFilter = ({ sort, onSortChange }) => {
             className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
           />
           <label htmlFor="price-desc" className="ml-3 text-sm text-gray-600">
-            Price: High to Low
+            <TranslateText>Price: High to Low</TranslateText>
           </label>
         </div>
         <div className="flex items-center">
@@ -118,7 +125,7 @@ const SortFilter = ({ sort, onSortChange }) => {
             className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
           />
           <label htmlFor="createdAt-desc" className="ml-3 text-sm text-gray-600">
-            Newest First
+            <TranslateText>Newest First</TranslateText>
           </label>
         </div>
         <div className="flex items-center">
@@ -131,7 +138,7 @@ const SortFilter = ({ sort, onSortChange }) => {
             className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300"
           />
           <label htmlFor="averageRating-desc" className="ml-3 text-sm text-gray-600">
-            Highest Rated
+            <TranslateText>Highest Rated</TranslateText>
           </label>
         </div>
       </div>
@@ -152,35 +159,35 @@ const ProductCard = ({ product }) => {
             />
           ) : (
             <div className="h-full w-full flex items-center justify-center">
-              <span className="text-gray-500">No image</span>
+              <span className="text-gray-500"><TranslateText>No image</TranslateText></span>
             </div>
           )}
           <div className="absolute top-2 right-2">
             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
               product.status === 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
             }`}>
-              {product.status === 'available' ? 'In Stock' : 'Sold Out'}
+              <TranslateText>{product.status === 'available' ? 'In Stock' : 'Sold Out'}</TranslateText>
             </span>
           </div>
           {product.organic && (
             <div className="absolute top-2 left-2">
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                Organic
+                <TranslateText>Organic</TranslateText>
               </span>
             </div>
           )}
         </div>
         <div className="p-4">
-          <h3 className="text-lg font-medium text-gray-900 mb-1">{product.name}</h3>
-          <p className="text-gray-500 text-sm mb-2 capitalize">{product.category}</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-1"><TranslateText>{product.name}</TranslateText></h3>
+          <p className="text-gray-500 text-sm mb-2 capitalize"><TranslateText>{product.category}</TranslateText></p>
           <div className="flex items-center justify-between">
-            <p className="text-lg font-medium text-gray-900">₹{product.price} / {product.unit}</p>
+            <p className="text-lg font-medium text-gray-900">₹{product.price} / <TranslateText>{product.unit}</TranslateText></p>
             <div className="flex items-center">
               <svg className="h-4 w-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
               <span className="ml-1 text-sm text-gray-500">
-                {product.averageRating ? product.averageRating.toFixed(1) : 'Not rated'}
+                <TranslateText>{product.averageRating ? product.averageRating.toFixed(1) : 'Not rated'}</TranslateText>
               </span>
             </div>
           </div>
@@ -200,7 +207,9 @@ const ProductCard = ({ product }) => {
                 )}
               </div>
             </div>
-            <p className="ml-2 text-xs text-gray-500">by {product.farmer.name}</p>
+            <p className="ml-2 text-xs text-gray-500">
+              <TranslateText>by</TranslateText> {product.farmer.name}
+            </p>
           </div>
         </div>
       </Link>
@@ -227,7 +236,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 : 'bg-white text-green-600 hover:bg-green-50'
             }`}
           >
-            Previous
+            <TranslateText>Previous</TranslateText>
           </button>
         </li>
         {pageNumbers.map((page) => (
@@ -254,7 +263,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 : 'bg-white text-green-600 hover:bg-green-50'
             }`}
           >
-            Next
+            <TranslateText>Next</TranslateText>
           </button>
         </li>
       </ul>
@@ -361,7 +370,9 @@ const ProductsPage = () => {
     <div className="bg-gray-50 min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900">Browse Products</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900">
+            <TranslateText>Browse Products</TranslateText>
+          </h1>
           {user?.role === 'farmer' && (
             <Link
               to="/add-product"
@@ -370,7 +381,7 @@ const ProductsPage = () => {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
               </svg>
-              Add Product
+              <TranslateText>Add Product</TranslateText>
             </Link>
           )}
         </div>
@@ -417,7 +428,7 @@ const ProductsPage = () => {
               onClick={clearFilters}
               className="mt-4 w-full bg-gray-200 py-2 px-4 rounded-md text-gray-700 hover:bg-gray-300"
             >
-              Clear Filters
+              <TranslateText>Clear Filters</TranslateText>
             </button>
           </div>
 
@@ -426,31 +437,35 @@ const ProductsPage = () => {
             {loading ? (
               <div className="flex flex-col items-center justify-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
-                <p className="mt-4 text-gray-600">Loading products...</p>
+                <p className="mt-4 text-gray-600"><TranslateText>Loading products...</TranslateText></p>
               </div>
             ) : error ? (
               <div className="bg-red-50 border-l-4 border-red-500 p-4">
-                <p className="text-red-700">{error}</p>
+                <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
               </div>
             ) : products.length === 0 ? (
               <div className="bg-white rounded-lg shadow p-6 text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
-                <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <TranslateText>No products found</TranslateText>
+                </h3>
+                <p className="text-gray-500">
+                  <TranslateText>Try adjusting your search or filter criteria.</TranslateText>
+                </p>
                 <button
                   onClick={clearFilters}
                   className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200"
                 >
-                  Clear all filters
+                  <TranslateText>Clear all filters</TranslateText>
                 </button>
               </div>
             ) : (
               <>
                 <div className="mb-4 flex justify-between items-center">
                   <p className="text-sm text-gray-500">
-                    Showing {products.length} of {totalProducts} products
+                    <TranslateText>Showing {products.length} of {totalProducts} products</TranslateText>
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

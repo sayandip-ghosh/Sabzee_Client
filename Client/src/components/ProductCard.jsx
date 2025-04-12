@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import TranslateText from '../components/TranslateText';
 
 const ProductCard = ({ product }) => {
   if (!product) {
@@ -29,37 +30,37 @@ const ProductCard = ({ product }) => {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-200">
-            <span className="text-gray-400">No image</span>
+            <span className="text-gray-400"><TranslateText>No image</TranslateText></span>
           </div>
         )}
         {organic && (
           <span className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-            Organic
+            <TranslateText>Organic</TranslateText>
           </span>
         )}
         {status !== 'available' && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <span className="text-white font-bold text-lg uppercase">
-              {status === 'sold_out' ? 'Sold Out' : 'Coming Soon'}
+              <TranslateText>{status === 'sold_out' ? 'Sold Out' : 'Coming Soon'}</TranslateText>
             </span>
           </div>
         )}
       </div>
       <div className="p-4">
         <div className="flex justify-between items-start">
-          <h3 className="text-lg font-semibold text-gray-800 mb-1">{name}</h3>
-          <p className="text-green-600 font-bold">₹{price}/{unit}</p>
+          <h3 className="text-lg font-semibold text-gray-800 mb-1"><TranslateText>{name}</TranslateText></h3>
+          <p className="text-green-600 font-bold">₹{price}/<TranslateText>{unit}</TranslateText></p>
         </div>
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2">{description}</p>
+        <p className="text-gray-600 text-sm mb-3 line-clamp-2"><TranslateText>{description}</TranslateText></p>
         <div className="flex justify-between items-center">
           <div className="text-sm text-gray-500">
-            <span>Available: {quantity} {unit}</span>
+            <TranslateText>Available: {quantity} {unit}</TranslateText>
           </div>
           <Link 
             to={`/products/${_id}`}
             className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-md text-sm transition-colors duration-300"
           >
-            View Details
+            <TranslateText>View Details</TranslateText>
           </Link>
         </div>
         <div className="mt-3 pt-3 border-t border-gray-100">
@@ -67,7 +68,7 @@ const ProductCard = ({ product }) => {
             to={farmer._id ? `/farmers/${farmer._id}` : '#'} 
             className={`text-sm text-gray-600 ${farmer._id ? 'hover:text-green-600' : ''}`}
           >
-            By: {farmer.name || 'Unknown Farmer'}
+            <TranslateText>By: </TranslateText>{farmer.name || <TranslateText>Unknown Farmer</TranslateText>}
           </Link>
         </div>
       </div>

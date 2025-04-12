@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { forumApi } from '../services/api';
 import useAuth from '../hooks/useAuth';
 import { FaPlus, FaThumbsUp, FaComment, FaCalendarAlt, FaSearch } from 'react-icons/fa';
+import TranslateText from '../components/TranslateText';
 
 const ForumPage = () => {
   const [posts, setPosts] = useState([]);
@@ -59,7 +60,7 @@ const ForumPage = () => {
           <div className="flex">
             <div className="ml-3">
               <p className="text-yellow-700">
-                The community forum is exclusively for farmers.
+                <TranslateText>The community forum is exclusively for farmers.</TranslateText>
               </p>
             </div>
           </div>
@@ -71,12 +72,14 @@ const ForumPage = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">Farmers Community Forum</h1>
+        <h1 className="text-3xl font-bold text-gray-800">
+          <TranslateText>Farmers Community Forum</TranslateText>
+        </h1>
         <button
           onClick={() => navigate('/forum/create')}
           className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex items-center"
         >
-          <FaPlus className="mr-2" /> New Post
+          <FaPlus className="mr-2" /> <TranslateText>New Post</TranslateText>
         </button>
       </div>
 
@@ -99,7 +102,7 @@ const ForumPage = () => {
             type="submit"
             className="p-2.5 ml-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300"
           >
-            Search
+            <TranslateText>Search</TranslateText>
           </button>
         </form>
       </div>
@@ -108,7 +111,7 @@ const ForumPage = () => {
         <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
           <div className="flex">
             <div className="ml-3">
-              <p className="text-red-700">{error}</p>
+              <p className="text-red-700"><TranslateText>{error}</TranslateText></p>
             </div>
           </div>
         </div>
@@ -120,12 +123,14 @@ const ForumPage = () => {
         </div>
       ) : posts.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">No forum posts found.</p>
+          <p className="text-gray-600 mb-4">
+            <TranslateText>No forum posts found.</TranslateText>
+          </p>
           <button
             onClick={() => navigate('/forum/create')}
             className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg"
           >
-            Create the first post
+            <TranslateText>Create the first post</TranslateText>
           </button>
         </div>
       ) : (
@@ -133,8 +138,12 @@ const ForumPage = () => {
           {posts.map((post) => (
             <div key={post._id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
               <Link to={`/forum/${post._id}`} className="block">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">{post.title}</h2>
-                <p className="text-gray-600 line-clamp-2 mb-4">{post.content}</p>
+                <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                  <TranslateText>{post.title}</TranslateText>
+                </h2>
+                <p className="text-gray-600 line-clamp-2 mb-4">
+                  <TranslateText>{post.content}</TranslateText>
+                </p>
                 
                 <div className="flex items-center text-sm text-gray-500 mb-3">
                   <div className="flex items-center mr-4">
@@ -144,12 +153,12 @@ const ForumPage = () => {
                   
                   <div className="flex items-center mr-4">
                     <FaThumbsUp className="mr-1" />
-                    <span>{post.likes.length} likes</span>
+                    <span><TranslateText>{post.likes.length} likes</TranslateText></span>
                   </div>
                   
                   <div className="flex items-center">
                     <FaComment className="mr-1" />
-                    <span>{post.commentCount} comments</span>
+                    <span><TranslateText>{post.commentCount} comments</TranslateText></span>
                   </div>
                 </div>
                 
@@ -192,7 +201,7 @@ const ForumPage = () => {
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               } text-sm font-medium`}
             >
-              Previous
+              <TranslateText>Previous</TranslateText>
             </button>
             
             {/* Page numbers */}
@@ -219,7 +228,7 @@ const ForumPage = () => {
                   : 'bg-white text-gray-700 hover:bg-gray-50'
               } text-sm font-medium`}
             >
-              Next
+              <TranslateText>Next</TranslateText>
             </button>
           </nav>
         </div>

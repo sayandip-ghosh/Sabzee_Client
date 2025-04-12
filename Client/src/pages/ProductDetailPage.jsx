@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import axios from 'axios';
 import { cartApi, productApi } from '../services/api';
+import TranslateText from '../components/TranslateText';
 
 const ProductDetailPage = () => {
   const { productId } = useParams();
@@ -114,7 +115,9 @@ const ProductDetailPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500"></div>
-        <p className="mt-4 text-gray-600">Loading product...</p>
+        <p className="mt-4 text-gray-600">
+          <TranslateText>Loading product...</TranslateText>
+        </p>
       </div>
     );
   }
@@ -123,13 +126,15 @@ const ProductDetailPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
         <div className="bg-red-50 border-l-4 border-red-500 p-4 max-w-md w-full">
-          <p className="text-red-700">{error}</p>
+          <p className="text-red-700">
+            <TranslateText>{error}</TranslateText>
+          </p>
         </div>
         <button
           onClick={() => navigate('/')}
           className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          Go to Home
+          <TranslateText>Go to Home</TranslateText>
         </button>
       </div>
     );
@@ -139,13 +144,15 @@ const ProductDetailPage = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
         <div className="bg-red-50 border-l-4 border-red-500 p-4 max-w-md w-full">
-          <p className="text-red-700">Product not found</p>
+          <p className="text-red-700">
+            <TranslateText>Product not found</TranslateText>
+          </p>
         </div>
         <button
           onClick={() => navigate('/products')}
           className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          Browse Products
+          <TranslateText>Browse Products</TranslateText>
         </button>
       </div>
     );
@@ -159,7 +166,7 @@ const ProductDetailPage = () => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
-            Back to Products
+            <TranslateText>Back to Products</TranslateText>
           </Link>
         </div>
 
@@ -175,7 +182,7 @@ const ProductDetailPage = () => {
                 />
               ) : (
                 <div className="w-full h-96 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-500">No image available</span>
+                  <TranslateText>No image available</TranslateText>
                 </div>
               )}
             </div>
@@ -204,17 +211,25 @@ const ProductDetailPage = () => {
           {/* Product details */}
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
             <div className="flex justify-between">
-              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{product.name}</h1>
+              <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+                <TranslateText>{product.name}</TranslateText>
+              </h1>
               <span className={`px-2 pt-2 text-xs font-semibold rounded-full ${
                 product.status === 'available' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
               }`}>
-                {product.status === 'available' ? 'In Stock' : 'Sold Out'}
+                {product.status === 'available' ? (
+                  <TranslateText>In Stock</TranslateText>
+                ) : (
+                  <TranslateText>Sold Out</TranslateText>
+                )}
               </span>
             </div>
             
             <div className="mt-3">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl text-gray-900">₹{product.price} / {product.unit}</p>
+              <p className="text-3xl text-gray-900">
+                <TranslateText>Price:</TranslateText> ₹{product.price} <TranslateText>per</TranslateText> {product.unit}
+              </p>
             </div>
 
             {/* Product metadata */}
@@ -244,15 +259,21 @@ const ProductDetailPage = () => {
 
             <div className="mt-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-gray-900">Category</h3>
+                <h3 className="text-sm font-medium text-gray-900">
+                  <TranslateText>Category</TranslateText>
+                </h3>
                 <p className="text-sm text-gray-500 capitalize">{product.category}</p>
               </div>
               <div className="flex items-center justify-between mt-4">
-                <h3 className="text-sm font-medium text-gray-900">Available Quantity</h3>
+                <h3 className="text-sm font-medium text-gray-900">
+                  <TranslateText>Available Quantity</TranslateText>
+                </h3>
                 <p className="text-sm text-gray-500">{product.quantity} {product.unit}</p>
               </div>
               <div className="flex items-center justify-between mt-4">
-                <h3 className="text-sm font-medium text-gray-900">Harvest Date</h3>
+                <h3 className="text-sm font-medium text-gray-900">
+                  <TranslateText>Harvest Date</TranslateText>
+                </h3>
                 <p className="text-sm text-gray-500">{formatDate(product.harvestDate)}</p>
               </div>
               {product.organic && (
@@ -260,22 +281,30 @@ const ProductDetailPage = () => {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span className="ml-2 text-sm text-green-700 font-medium">Organic Product</span>
+                  <span className="ml-2 text-sm text-green-700 font-medium">
+                    <TranslateText>Organic Product</TranslateText>
+                  </span>
                 </div>
               )}
             </div>
 
             <div className="mt-6">
-              <h3 className="text-sm font-medium text-gray-900">Description</h3>
+              <h3 className="text-sm font-medium text-gray-900">
+                <TranslateText>Description</TranslateText>
+              </h3>
               <div className="mt-2 prose prose-sm text-gray-500">
-                <p>{product.description}</p>
+                <p>
+                  <TranslateText>{product.description}</TranslateText>
+                </p>
               </div>
             </div>
 
             {/* Certifications */}
             {product.certifications && product.certifications.length > 0 && (
               <div className="mt-6">
-                <h3 className="text-sm font-medium text-gray-900">Certifications</h3>
+                <h3 className="text-sm font-medium text-gray-900">
+                  <TranslateText>Certifications</TranslateText>
+                </h3>
                 <ul className="mt-2 divide-y divide-gray-200 border rounded-md">
                   {product.certifications.map((cert, index) => (
                     <li key={index} className="px-4 py-3">
@@ -294,7 +323,9 @@ const ProductDetailPage = () => {
 
             {/* Farmer information */}
             <div className="mt-6 border-t border-gray-200 pt-6">
-              <h3 className="text-sm font-medium text-gray-900">Farmer Information</h3>
+              <h3 className="text-sm font-medium text-gray-900">
+                <TranslateText>Farmer Information</TranslateText>
+              </h3>
               <div className="mt-4 flex items-center">
                 <div className="h-12 w-12 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
                   {product.farmer.profileImage ? (
@@ -322,7 +353,9 @@ const ProductDetailPage = () => {
             {product.status === 'available' && user?.role === 'consumer' && (
               <div className="mt-8">
                 <div className="flex items-center">
-                  <h3 className="text-sm font-medium text-gray-900 mr-4">Quantity</h3>
+                  <h3 className="text-sm font-medium text-gray-900 mr-4">
+                    <TranslateText>Quantity</TranslateText>
+                  </h3>
                   <div className="flex border border-gray-300 rounded-md">
                     <button
                       type="button"
@@ -362,7 +395,11 @@ const ProductDetailPage = () => {
                       addingToCart ? 'opacity-75 cursor-not-allowed' : ''
                     }`}
                   >
-                    {addingToCart ? 'Adding...' : 'Add to Cart'}
+                    {addingToCart ? (
+                      <TranslateText>Adding...</TranslateText>
+                    ) : (
+                      <TranslateText>Add to Cart</TranslateText>
+                    )}
                   </button>
                 </div>
 
@@ -376,7 +413,7 @@ const ProductDetailPage = () => {
                       </div>
                       <div className="ml-3">
                         <p className="text-sm text-green-700">
-                          Product added to cart successfully
+                          <TranslateText>Product added to cart successfully</TranslateText>
                         </p>
                       </div>
                     </div>
@@ -385,7 +422,9 @@ const ProductDetailPage = () => {
 
                 {!isAuthenticated && (
                   <p className="mt-4 text-sm text-gray-500">
-                    Please <Link to="/login" className="text-green-600 font-medium">login</Link> to add items to your cart.
+                    <TranslateText>Please</TranslateText> <Link to="/login" className="text-green-600 font-medium">
+                      <TranslateText>login</TranslateText>
+                    </Link> <TranslateText>to add items to your cart.</TranslateText>
                   </p>
                 )}
               </div>
@@ -394,10 +433,14 @@ const ProductDetailPage = () => {
             {/* Add Rating Section */}
             {user?.role === 'consumer' && (
               <div className="mt-8 border-t border-gray-200 pt-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Rate this Product</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  <TranslateText>Rate this Product</TranslateText>
+                </h3>
                 <form onSubmit={handleRatingSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Your Rating</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <TranslateText>Your Rating</TranslateText>
+                    </label>
                     <div className="flex items-center space-x-1">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
@@ -421,7 +464,7 @@ const ProductDetailPage = () => {
                   </div>
                   <div>
                     <label htmlFor="review" className="block text-sm font-medium text-gray-700 mb-2">
-                      Your Review
+                      <TranslateText>Your Review</TranslateText>
                     </label>
                     <textarea
                       id="review"
@@ -440,7 +483,11 @@ const ProductDetailPage = () => {
                       submittingRating || !userRating ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
                   >
-                    {submittingRating ? 'Submitting...' : 'Submit Review'}
+                    {submittingRating ? (
+                      <TranslateText>Submitting...</TranslateText>
+                    ) : (
+                      <TranslateText>Submit Review</TranslateText>
+                    )}
                   </button>
                 </form>
 
@@ -454,7 +501,7 @@ const ProductDetailPage = () => {
                       </div>
                       <div className="ml-3">
                         <p className="text-sm text-green-700">
-                          Review submitted successfully!
+                          <TranslateText>Review submitted successfully!</TranslateText>
                         </p>
                       </div>
                     </div>
@@ -466,7 +513,9 @@ const ProductDetailPage = () => {
             {/* Display Reviews Section */}
             {product?.ratings && product.ratings.length > 0 && (
               <div className="mt-8 border-t border-gray-200 pt-8">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Customer Reviews</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  <TranslateText>Customer Reviews</TranslateText>
+                </h3>
                 <div className="space-y-6">
                   {product.ratings.map((rating, index) => (
                     <div key={index} className="border-b border-gray-200 pb-6 last:border-b-0">
